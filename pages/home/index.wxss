@@ -1,0 +1,80 @@
+@import '../../template/itemTemplate/item.wxss';
+.header {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 92px;
+  background-color: #efeff4;
+  border-bottom: 1px solid #ddd;
+}
+
+.searchBar {
+  box-sizing: border-box;
+  width: 90%;
+  height: 35px;
+  margin: 10px auto;
+  border-radius: 6px;
+  background-color: #fff;
+  font-size: 15px;
+  padding-left: 60rpx;
+  /* text-indent: 54rpx; */
+}
+
+.search-box {
+  width: 75px;
+  height: 50rpx;
+  position: absolute;
+  left: 300rpx;
+  top: 17px;
+  z-index: 10;
+  transition: all .3s
+}
+
+.search-img {
+  margin-right: 14rpx;
+  position: relative;
+  top: 1px;
+  width: 40rpx;
+  height: 40rpx;
+  display: inline-block;
+}
+
+.search-text {
+  vertical-align: middle;
+}
+
+.navBar {
+  display: flex;
+  width: 750rpx;
+  margin-top: 5px;
+  /* top: 60px; */
+}
+
+.navText {
+  width: 33.333%;
+  text-align: center;
+}
+
+.navText-checked{
+  width: 33.333%;
+  text-align: center;
+  color: #0181F4;
+  transition: color .3s;
+}
+
+.navLine {
+  width: 90rpx;
+  border-top: 1px solid #0181F4;
+  position: absolute;
+  top: 85px;
+  transition: all .3s;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  width: 750rpx;
+  height: 100px;
+  overflow: hidden;
+  box-sizing: border-box;
+}

@@ -1,0 +1,107 @@
+.title {
+    height: 100rpx;
+    background: white;
+    width: 100%;
+    vertical-align: middle;
+    padding-left: 30rpx;
+    box-sizing: border-box;
+}
+
+.line {
+    border-top: 1px solid #eee
+}
+
+.content-box {
+    height: 330rpx;
+    width: 100%;
+    box-sizing: border-box;
+    background: white;
+}
+
+.content {
+    height: 250rpx;
+    background: white;
+    width: 100%;
+    padding-top: 40rpx;
+    padding-left: 50rpx;
+    font-size: 14px;
+    box-sizing: border-box;
+
+}
+
+.upload-img {
+    width: 27px;
+    height: 25px;
+    position: absolute;
+    left: 20rpx;
+    top: 366rpx;
+}
+
+.contact {
+    box-sizing: border-box;
+    height: 100rpx;
+    background: white;
+    width: 100%;
+    vertical-align: middle;
+    padding-left: 30rpx;
+    margin-top: 40rpx;
+    margin-bottom: 40rpx;
+}
+
+.radio-box {
+    font-size: 14px;
+    color: #666666;
+    background: white;
+    padding-left: 30rpx;
+    display: flex;
+    align-items: center;
+    height: 100rpx;
+}
+
+.radio-group {
+    font-size: 14px;
+}
+
+.tip {
+    margin-top: 40rpx;
+    margin-bottom: 20rpx;
+    height: 70rpx;
+    text-align: center
+}
+
+.tip text {
+    font-size: 12px;
+}
+
+.button {
+    width: 200rpx;
+    position: relative;
+    left: 37%
+}
+
+/* 重写单选框 */
+
+.radio {
+    font-size: 14px;
+    display: none;
+}
+
+.radio-item {
+    display: inline-block;
+    margin-left: 30rpx;
+    border: 1px solid #999;
+    width: 40px;
+    text-align: center;
+    border-radius: 4px;
+}
+
+.radio-item_active {
+    background: #aaa;
+    display: inline-block;
+    margin-left: 30rpx;
+    border: 1px solid #999;
+    width: 40px;
+    text-align: center;
+    color: white;
+    border-radius: 4px;
+}

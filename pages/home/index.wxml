@@ -1,0 +1,44 @@
+<import src='../../template/itemTemplate/item.wxml' />
+<view class="header">
+  <view class="search-box" style="left:{{searchImgMove}}rpx" catch:tap="onTapSearch">
+    <image class="search-img" src="../../data/images/find.png"></image>
+    <text class="search-text" style="font-size:15px;color:#aaa;position:relative;top:-8rpx;" wx:if="{{placeholderShow}}">搜一搜</text>
+  </view>
+  <input class="searchBar" bindfocus="onTapSearch" bindinput="onInput" bindblur="onLoseFocus" />
+  <view class='navBar'>
+    <text class="{{checkedTextIndex===1?'navText-checked':'navText'}}" data-navId='1' bindtap='onTapNav'>全部</text>
+    <text class="{{checkedTextIndex===2?'navText-checked':'navText'}}" data-navId='2' bindtap='onTapNav'>卖赠</text>
+    <text class="{{checkedTextIndex===3?'navText-checked':'navText'}}" data-navId='3' bindtap='onTapNav'>买借</text>
+  </view>
+  <view class='navLine' style='left:{{navLineMove}}%'></view>
+</view>
+
+
+    <view class='item' animation="{{animationData}}">
+     
+      <template is='item'></template>
+    
+    </view>
+    <view class='item' animation="{{animationData}}">
+     
+      <template is='item'></template>
+    
+    </view>
+    <view class='item' animation="{{animationData}}">
+     
+      <template is='item'></template>
+    
+    </view>
+    <view class='item' animation="{{animationData}}">
+     
+      <template is='item'></template>
+    
+    </view>
+    <view class='item' animation="{{animationData}}">
+     
+      <template is='item'></template>
+    
+    </view>
+    
+
+

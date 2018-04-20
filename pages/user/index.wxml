@@ -1,0 +1,13 @@
+<view class="user">
+    <image src="../../data/images/mine.png"></image>
+    <text>user</text>
+</view>
+
+<view class='item-container'>我收藏的<image src="../../data/images/enter.png" /></view>
+<view class='item-container'>我看过的<image src="../../data/images/enter.png" /></view>
+<view class='item-container'>我发布的<image src="../../data/images/enter.png" /></view>
+<view class='item-container'>使用说明<image src="../../data/images/enter.png" /></view>
+<view class='item-container'>联系管理员<image src="../../data/images/help.png" /></view>
+
+
+    

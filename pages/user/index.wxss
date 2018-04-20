@@ -1,0 +1,37 @@
+.user{
+    height: 150px;
+    width: 100%;
+    text-align: center;
+}
+
+.user image{
+    display: block;
+    width: 90px;
+    height: 90px;
+  margin:70rpx auto 1rpx auto
+}
+
+.user text{
+    font-size:44rpx
+}
+
+.item-container{
+    box-sizing: border-box;
+    height: 100rpx;
+    width: 100%;
+    background: white;    
+    padding-left: 30rpx;
+    margin-top: 20rpx;
+    font-size: 14px;
+    color:#666;
+    line-height: 100rpx;
+}
+
+.item-container image{
+    height: 22px;
+    width: 22px;
+    float: right;
+    margin-right: 20rpx;
+    margin-top: 26rpx;
+    display: block;
+}

@@ -1,0 +1,30 @@
+<form>
+
+    <input class="title" placeholder="写点东西放标题吧" placeholder-style="font-size:15px;color:#666" maxlength="30" focus="true"></input>
+    <view class="line"></view>
+    <view class="content-box"><textarea class="content" placeholder="这一刻, 你的想法..."></textarea><view class="line"></view></view>
+    
+    <image class="upload-img" src="../../data/images/img.png" />
+
+
+    <input class="contact" placeholder="联系方式: (可填写qq, 微信号或手机号码)" placeholder-style="font-size:14px;color:#666"></input>
+
+    <input class="contact" placeholder="价格: (可不填)" placeholder-style="font-size:14px;color:#666"></input>
+
+    <view class="radio-box">
+        <view class="radio-placeholder">选择分类：</view>
+        <radio-group class="radio-group" bindchange="radioChange">
+            <label wx:for="{{items}}" wx:for-index="index">
+                <radio class="radio" value="{{item.name}}" checked="{{item.checked}}" />
+                <view class="{{radioCheckVal===item.name?'radio-item_active':'radio-item'}}">{{item.value}}
+                </view>
+            </label>
+        </radio-group>
+    </view>
+
+
+</form>
+<view class='tip'>
+    <text>tip:请不要发布虚假广告, 色情暴力等相关违法信息</text>
+</view>
+<button class="button" size="mini" form-type="submit">发布</button>

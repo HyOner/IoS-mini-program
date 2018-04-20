@@ -1,0 +1,38 @@
+{
+
+  "pages": [
+    "pages/home/index",
+    "pages/edit/index",
+    "pages/user/index"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#82858C",
+    "navigationBarTitleText": "IoS"
+  },
+  "tabBar": {
+    "color": "#999",
+    "selectedColor": "#999",
+    "borderStyle": "white",
+    "list": [{
+
+        "pagePath": "pages/home/index",
+        "iconPath": "/data/images/interactive.png",
+        "selectedIconPath": "/data/images/interactive_fill.png"
+      },
+      {
+
+        "pagePath": "pages/edit/index",
+        "iconPath": "/data/images/addition_fill.png",
+        "selectedIconPath": "/data/images/addition_fill.png"
+
+      },
+      {
+        "pagePath": "pages/user/index",
+        "iconPath": "/data/images/mine.png",
+        "selectedIconPath": "/data/images/mine_fill.png"
+      }
+
+    ]
+  }
+
+}

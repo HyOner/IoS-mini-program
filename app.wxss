@@ -1,0 +1,10 @@
+page {
+   background-color: #eee;
+   height: 100%;
+ }
+
+ text {
+   font-family: PingFang SC, MicroSoft Yahei;
+   font-size: 14px;
+   color: #666;
+ }
