@@ -2,10 +2,14 @@
 .header {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 722rpx;
   height: 92px;
   background-color: #efeff4;
   border-bottom: 1px solid #ddd;
+  margin-bottom: 12px;
+  margin-top: 6px;
+  margin-left: 5px;
+   box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.3);
 }
 
 .searchBar {
@@ -16,7 +20,7 @@
   border-radius: 6px;
   background-color: #fff;
   font-size: 15px;
-  padding-left: 60rpx;
+  padding-left: 52rpx;
   /* text-indent: 54rpx; */
 }
 
@@ -25,7 +29,7 @@
   height: 50rpx;
   position: absolute;
   left: 300rpx;
-  top: 17px;
+  top: 23px;
   z-index: 10;
   transition: all .3s
 }
@@ -53,28 +57,34 @@
 .navText {
   width: 33.333%;
   text-align: center;
+  color:#999;
 }
 
 .navText-checked{
   width: 33.333%;
   text-align: center;
-  color: #0181F4;
+  color: #333;
   transition: color .3s;
 }
 
 .navLine {
-  width: 90rpx;
+  width: 70rpx;
   border-top: 1px solid #0181F4;
   position: absolute;
-  top: 85px;
+  top: 90px;
   transition: all .3s;
 }
 
 .item {
   display: flex;
   flex-direction: column;
-  width: 750rpx;
+  width: 722rpx;
   height: 100px;
   overflow: hidden;
   box-sizing: border-box;
+  margin-top: 10px;
+  margin-bottom: 12px;
+  margin-left: 5px;
+  box-shadow: 1px 1px 4px 1px rgba(0, 0, 0,0.3);
+  
 }

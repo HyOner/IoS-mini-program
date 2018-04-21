@@ -8,7 +8,8 @@
     display: block;
     width: 90px;
     height: 90px;
-  margin:70rpx auto 1rpx auto
+  margin:70rpx auto 1rpx auto;
+  border-radius: 50%;
 }
 
 .user text{

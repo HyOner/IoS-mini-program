@@ -1,11 +1,11 @@
 <template name="item">
     <view class='item-container'>
         <!-- <view class='header-container'> -->
-            <view class='tag'>
-                <text class='tag-text'>闲置</text>
-            </view>
-
+            
             <view class="introduction">
+                <view class='tag'>
+                    <text>闲置</text>
+                </view>
                 <text class='user'>小沐沐</text>
                 <text class='send-text'>发布于</text>
                 <text class='time'>14:20</text>

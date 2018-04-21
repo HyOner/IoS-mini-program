@@ -1,6 +1,6 @@
 <view class="user">
-    <image src="../../data/images/mine.png"></image>
-    <text>user</text>
+    <image src="{{userInfo.avatarUrl}}"></image>
+    <text>{{userInfo.nickName}}</text>
 </view>
 
 <view class='item-container'>我收藏的<image src="../../data/images/enter.png" /></view>

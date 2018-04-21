@@ -4,8 +4,8 @@ Page({
    */
   data: {
     placeholderShow: true,
-    searchImgMove: 300,
-    navLineMove: 11,
+    searchImgMove: 290,
+    navLineMove: 13,
     checkedTextIndex:1,
     isDetailShow: false,
     animationData: ''
@@ -53,20 +53,20 @@ Page({
     switch (navid) {
       case 1:
       this.setData({
-        navLineMove: 11,
+        navLineMove: 13,
         checkedTextIndex:1
       })
       break;
       case 2:
       this.setData({
-        navLineMove: 44,
+        navLineMove: 46.5,
         checkedTextIndex: 2
 
       })
       break;
       case 3:
       this.setData({
-        navLineMove: 78,
+        navLineMove: 80,
         checkedTextIndex: 3
       })
       break;
@@ -76,7 +76,7 @@ Page({
   onTapDetail(e) {
     console.log('ok');
     
-    this.animation.height(460).step()
+    this.animation.height(466).step()
     this.setData({
       animationData: this.animation.export()
     })
