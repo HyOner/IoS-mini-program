@@ -1,0 +1,36 @@
+.upload {
+    /* margin-right: 10px; */
+    background: #eee;
+    width: 60px;
+    height: 60px;
+    margin-right: 8rpx;
+    margin-top: 4px;
+    text-align: center;
+}
+
+.virImg {
+    margin: 8px 17px 0 16px;
+    width: 27px;
+    height: 27px;
+}
+
+.upload text {
+    position: relative;
+    top: -18rpx;
+    color: #999;
+    font-size: 12px;
+}
+
+.close-img {
+    position: relative;
+    width: 16px;
+    height: 16px;
+    top: -71px;
+    left: 25px;
+}
+
+.realImg {
+    width: 60px;
+    height: 60px;
+    z-index: 99;
+}

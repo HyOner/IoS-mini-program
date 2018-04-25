@@ -1,5 +1,5 @@
 page {
-   background-color: #eee;
+   background-color: #f0f0f0;
    height: 100%;
  }
 
@@ -8,3 +8,4 @@ page {
    font-size: 14px;
    color: #666;
  }
+

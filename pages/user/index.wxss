@@ -1,38 +1,44 @@
-.user{
-    height: 150px;
+.user {
+    height: 140px;
     width: 100%;
     text-align: center;
+    padding-top: 25px;
 }
 
-.user image{
+.user image {
     display: block;
     width: 90px;
     height: 90px;
-  margin:70rpx auto 1rpx auto;
-  border-radius: 50%;
+    margin: 0 auto;
+    border-radius: 50%;
 }
 
-.user text{
-    font-size:44rpx
+.user text {
+    font-size: 44rpx
 }
 
-.item-container{
+.item-container {
     box-sizing: border-box;
     height: 100rpx;
     width: 100%;
-    background: white;    
+    background: white;
     padding-left: 30rpx;
-    margin-top: 20rpx;
+    margin-top: 30rpx;
     font-size: 14px;
-    color:#666;
+    color: #666;
     line-height: 100rpx;
 }
 
-.item-container image{
+.item-container image {
     height: 22px;
     width: 22px;
     float: right;
     margin-right: 20rpx;
     margin-top: 26rpx;
     display: block;
+}
+
+.hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    opacity: 0.7;
 }

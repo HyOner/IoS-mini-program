@@ -1,10 +1,11 @@
 <import src='../../template/itemTemplate/item.wxml' />
 <view class="header">
-  <view class="search-box" style="left:{{searchImgMove}}rpx" catch:tap="onTapSearch">
+  
+  <view class="search-box" style="left:48rpx" catch:tap="onTapSearch">
     <image class="search-img" src="../../data/images/find.png"></image>
-    <text class="search-text" style="font-size:15px;color:#aaa;position:relative;top:-8rpx;" wx:if="{{placeholderShow}}">搜一搜</text>
   </view>
-  <input class="searchBar" bindfocus="onTapSearch" bindinput="onInput" bindblur="onLoseFocus" />
+
+  <input class="searchBar" bindfocus="onTapSearch" bindinput="onInput" bindblur="onLoseFocus" placeholder="搜一搜你想看的吧"/>
   <view class='navBar'>
     <text class="{{checkedTextIndex===1?'navText-checked':'navText'}}" data-navId='1' bindtap='onTapNav'>全部</text>
     <text class="{{checkedTextIndex===2?'navText-checked':'navText'}}" data-navId='2' bindtap='onTapNav'>卖赠</text>
@@ -13,32 +14,11 @@
   <view class='navLine' style='left:{{navLineMove}}%'></view>
 </view>
 
+<block wx:for="{{postData}}" wx:for-item="post" wx:key="key">
+  <view class='item' animation="{{animationData}}">
 
-    <view class='item' animation="{{animationData}}">
-     
-      <template is='item'></template>
-    
-    </view>
-    <view class='item' animation="{{animationData}}">
-     
-      <template is='item'></template>
-    
-    </view>
-    <view class='item' animation="{{animationData}}">
-     
-      <template is='item'></template>
-    
-    </view>
-    <view class='item' animation="{{animationData}}">
-     
-      <template is='item'></template>
-    
-    </view>
-    <view class='item' animation="{{animationData}}">
-     
-      <template is='item'></template>
-    
-    </view>
-    
+    <template is='item' data="{{post:post,userInfo:userInfo}}"></template>
 
+  </view>
 
+</block>

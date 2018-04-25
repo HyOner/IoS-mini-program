@@ -15,11 +15,10 @@ function enryptData (params) {
     paramsStrExceptSign += params[sdic[ki]];
   }
 
-  var sign = util.hexMD5(paramsStrExceptSign + OKAYAPI_APP_SECRECT).toUpperCase();
-  params['sign'] = sign;
+  var sign = util.encryptToMD5(paramsStrExceptSign + OKAYAPI_APP_SECRECT).toUpperCase();
+  // var sign = util.hexMD5(paramsStrExceptSign + OKAYAPI_APP_SECRECT).toUpperCase();
 
-  // console.log(params);
-  
+  params['sign'] = sign;
   return params;
 }
 

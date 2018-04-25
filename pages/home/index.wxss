@@ -1,15 +1,17 @@
 @import '../../template/itemTemplate/item.wxss';
+page{
+background: #f8f8f8
+}
+
 .header {
   display: flex;
   flex-direction: column;
-  width: 722rpx;
+  width: 100%;
   height: 92px;
-  background-color: #efeff4;
-  border-bottom: 1px solid #ddd;
-  margin-bottom: 12px;
+  background-color: white;
   margin-top: 6px;
-  margin-left: 5px;
-   box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.3);
+  margin-bottom: -6px;
+
 }
 
 .searchBar {
@@ -17,11 +19,10 @@
   width: 90%;
   height: 35px;
   margin: 10px auto;
-  border-radius: 6px;
-  background-color: #fff;
+  border-radius: 8px;
+  background-color: #ededef;
   font-size: 15px;
-  padding-left: 52rpx;
-  /* text-indent: 54rpx; */
+  padding-left: 60rpx;
 }
 
 .search-box {
@@ -49,9 +50,9 @@
 
 .navBar {
   display: flex;
-  width: 750rpx;
-  margin-top: 5px;
-  /* top: 60px; */
+  width: 140px;
+  margin-top: 7px;
+  margin-left:7px;
 }
 
 .navText {
@@ -68,8 +69,8 @@
 }
 
 .navLine {
-  width: 70rpx;
-  border-top: 1px solid #0181F4;
+  width: 33px;
+  border-top: 2px solid #333;
   position: absolute;
   top: 90px;
   transition: all .3s;
@@ -78,13 +79,13 @@
 .item {
   display: flex;
   flex-direction: column;
-  width: 722rpx;
-  height: 100px;
+  width: 100%;
+  height: 76px;
   overflow: hidden;
   box-sizing: border-box;
-  margin-top: 10px;
-  margin-bottom: 12px;
-  margin-left: 5px;
-  box-shadow: 1px 1px 4px 1px rgba(0, 0, 0,0.3);
+  margin-top: 12px;
+  margin-bottom: 0px;
+  background: #f8f8f8;
+  border-radius: 4px;
   
 }

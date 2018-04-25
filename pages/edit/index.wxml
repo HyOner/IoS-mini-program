@@ -1,19 +1,32 @@
-<form>
+<import src="../../template/uploadBox/upload.wxml" />
+<form bindsubmit="submitData">
 
-    <input class="title" placeholder="写点东西放标题吧" placeholder-style="font-size:15px;color:#666" maxlength="30" focus="true"></input>
+    <input name="title" class="title" placeholder="写点东西放标题吧" placeholder-style="font-size:15px;color:#666" maxlength="40" focus="true"
+        confirm-hold="true" confirm-type="next" data-inputid="1"></input>
     <view class="line"></view>
-    <view class="content-box"><textarea class="content" placeholder="这一刻, 你的想法..."></textarea><view class="line"></view></view>
+    <view class="content-box">
+        <textarea name="content" class="content" placeholder="这一刻, 你的想法..." data-inputid="2"></textarea>
+        <view class="line"></view>
+    </view>
     
-    <image class="upload-img" src="../../data/images/img.png" />
+    <view class="upload-box">
+        <template  wx:for='{{files}}' wx:for-item='file' wx:for-index='index' is="uploadBox" data='{{...file,index:index}}'></template>
+    </view>
 
 
-    <input class="contact" placeholder="联系方式: (可填写qq, 微信号或手机号码)" placeholder-style="font-size:14px;color:#666"></input>
+    <view class='input-box'>
+        <text>联系方式：</text>
+        <input name="contact" class="contact" placeholder="可填写qq, 微信号或手机号码" placeholder-style="font-size:14px;color:#666" data-inputid="3"></input>
+    </view>
 
-    <input class="contact" placeholder="价格: (可不填)" placeholder-style="font-size:14px;color:#666"></input>
+    <view class='input-box'>
+        <text>价格或酬金：</text>
+        <input name="price" class="contact" type="digit" placeholder="可不填" placeholder-style="font-size:14px;color:#666"></input>
+    </view>
 
     <view class="radio-box">
         <view class="radio-placeholder">选择分类：</view>
-        <radio-group class="radio-group" bindchange="radioChange">
+        <radio-group name="category" class="radio-group" bindchange="radioChange">
             <label wx:for="{{items}}" wx:for-index="index">
                 <radio class="radio" value="{{item.name}}" checked="{{item.checked}}" />
                 <view class="{{radioCheckVal===item.name?'radio-item_active':'radio-item'}}">{{item.value}}
@@ -22,9 +35,12 @@
         </radio-group>
     </view>
 
+    <view class='tip'>
+        <text>tip:请不要发布虚假广告, 色情暴力等相关违法信息</text>
+    </view>
+    <button class="button" size="mini" form-type="submit">发布</button>
 
 </form>
-<view class='tip'>
-    <text>tip:请不要发布虚假广告, 色情暴力等相关违法信息</text>
-</view>
-<button class="button" size="mini" form-type="submit">发布</button>
+
+<!-- 顶部弹出通知 -->
+<view class="zan-toptips {{ zanTopTips.show ? 'zan-toptips--show' : '' }}">{{ zanTopTips.content }}</view>
