@@ -9,9 +9,7 @@ background: #f8f8f8
   width: 100%;
   height: 92px;
   background-color: white;
-  margin-top: 6px;
-  margin-bottom: -6px;
-
+  padding-top: 6px;
 }
 
 .searchBar {
@@ -70,7 +68,7 @@ background: #f8f8f8
 
 .navLine {
   width: 33px;
-  border-top: 2px solid #333;
+  border-top: 2px solid #46cb84;
   position: absolute;
   top: 90px;
   transition: all .3s;
@@ -83,9 +81,19 @@ background: #f8f8f8
   height: 76px;
   overflow: hidden;
   box-sizing: border-box;
-  margin-top: 12px;
-  margin-bottom: 0px;
+  /* margin-top: 6px; */
   background: #f8f8f8;
   border-radius: 4px;
-  
+}
+
+.item-checked {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 76px;
+  overflow: hidden;
+  box-sizing: border-box;
+  /* margin-top: 6px; */
+  border-radius: 4px;
+  background: #ededef
 }

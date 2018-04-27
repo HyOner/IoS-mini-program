@@ -4,10 +4,9 @@
 </view>
 
 <view class='item-container' hover="true" hover-class="hover" hover-stay-time="150">我收藏的<image src="../../data/images/enter.png" /></view>
-<view class='item-container' hover="true" hover-class="hover" hover-stay-time="150">我看过的<image src="../../data/images/enter.png" /></view>
 <view class='item-container' hover="true" hover-class="hover" hover-stay-time="150">我发布的<image src="../../data/images/enter.png" /></view>
-<view class='item-container' hover="true" hover-class="hover" hover-stay-time="150">使用说明<image src="../../data/images/enter.png" /></view>
-<view class='item-container' hover="true" hover-class="hover" hover-stay-time="150">联系管理员<image src="../../data/images/help.png" /></view>
+<view class='item-container' hover="true" hover-class="hover" hover-stay-time="150">关于我们<image src="../../data/images/enter.png" /></view>
+<view class='item-container' hover="true" hover-class="hover" hover-stay-time="150">意见反馈<image src="../../data/images/help.png" /></view>
 
 
     

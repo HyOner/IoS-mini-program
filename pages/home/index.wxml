@@ -1,23 +1,23 @@
 <import src='../../template/itemTemplate/item.wxml' />
 <view class="header">
-  
+
   <view class="search-box" style="left:48rpx" catch:tap="onTapSearch">
     <image class="search-img" src="../../data/images/find.png"></image>
   </view>
 
-  <input class="searchBar" bindfocus="onTapSearch" bindinput="onInput" bindblur="onLoseFocus" placeholder="搜一搜你想看的吧"/>
+  <input class="searchBar" bindinput="onInput" placeholder="搜一搜你感兴趣的吧"/>
   <view class='navBar'>
-    <text class="{{checkedTextIndex===1?'navText-checked':'navText'}}" data-navId='1' bindtap='onTapNav'>全部</text>
-    <text class="{{checkedTextIndex===2?'navText-checked':'navText'}}" data-navId='2' bindtap='onTapNav'>卖赠</text>
-    <text class="{{checkedTextIndex===3?'navText-checked':'navText'}}" data-navId='3' bindtap='onTapNav'>买借</text>
+    <text class="{{checkedTextIndex===1?'navText-checked':'navText'}}" data-navId='1' bindtap='onTapNav'>All</text>
+    <text class="{{checkedTextIndex===2?'navText-checked':'navText'}}" data-navId='2' bindtap='onTapNav'>In</text>
+    <text class="{{checkedTextIndex===3?'navText-checked':'navText'}}" data-navId='3' bindtap='onTapNav'>Out</text>
   </view>
-  <view class='navLine' style='left:{{navLineMove}}%'></view>
+  <view class='navLine' style='left:{{navLineMove}}px'></view>
 </view>
 
-<block wx:for="{{postData}}" wx:for-item="post" wx:key="key">
-  <view class='item' animation="{{animationData}}">
+<block wx:for="{{postData}}" wx:for-item="post">
+  <view class='{{postid===post.id?"item-checked":"item"}}' animation="{{postid===post.id?animationData:''}}">
 
-    <template is='item' data="{{post:post,userInfo:userInfo}}"></template>
+    <template is='item' data="{{post:post,userInfo:userInfo,postid:postid}}"></template>
 
   </view>
 

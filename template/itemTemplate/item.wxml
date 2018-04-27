@@ -1,12 +1,14 @@
 <template name="item">
-    <view class='item-container'>
+    <view class="item-container">
 
 
         <view class="introduction">
 
-            <view class='title-box' catch:tap='onTapDetail'>
+            <view class='title-box' catch:tap='onTapDetail' data-postid="{{post.id}}">
                 <text class='title'>{{post.data.title}}</text>
+                <image class='{{postid===post.id?"up-img-checked":"up-img"}}' src='../../data/images/packup.png' catch:tap="onTapUp" data-postid="{{post.id}}"></image>
             </view>
+         
 
             <view class="sbox">
                 <view class='tag'>
@@ -15,7 +17,7 @@
 
                 <text class='user'>{{userInfo.nickName}}</text>
                 <text>/</text>
-                <text style="margin-left:7px;font-size:14px;color:#666;">48</text>
+                <text style="margin-left:7px;font-size:14px;color:#666;">{{post.data.collected_count}}</text>
                 <text style="letter-spacing:1rpx;color:#666;font-size:12px;">人喜欢</text>
 
                 <text class='time'>{{post.add_time}}</text>
@@ -38,8 +40,8 @@
 
 
         <view class="detail-box">
-            <view style="box-sizing:border-box;margin:0 20rpx;">
-                <text class="detail-text">{{post.data.title+post.data.content}}</text>
+            <view style="box-sizing:border-box;margin:0 20rpx;" id="{{'content'+post.id}}">
+                <text class="detail-text">{{post.data.title+' '+post.data.content}}</text>
             </view>
             <view class="detail-footer">
                 <text class="price">{{post.data.price?'¥ '+post.data.price:'面谈'}}</text>
@@ -52,12 +54,8 @@
                     <image class='footer-img' src='../../data/images/share.png'></image>
                 </view>
 
-                <view class="up-box" catch:tap="onTapUp">
-                    <image class='up-img' src='../../data/images/packup.png'></image>
-                </view>
-
                 <view class='img-box'>
-                    <image class='footer-img' src='../../data/images/like.png'></image>
+                    <image class='footer-img' src="{{post.postCollected?'../../data/images/like_fill.png':'../../data/images/like.png'}}" catch:tap='collectPost' data-postid="{{post.id}}"></image>
                 </view>
 
 

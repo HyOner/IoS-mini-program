@@ -1,0 +1,140 @@
+.item-container {
+    display: flex;
+    flex-direction: column;
+    width: inherit;
+    height: 76px;
+    box-sizing: border-box;
+}
+
+.sbox {
+    height: 30px;
+    line-height: 30px;
+}
+
+.introduction {
+    height: inherit;
+    padding-bottom: 10px;
+}
+
+.tag {
+    margin-left: 15px;
+    height: 19px;
+    width: 34px;
+    text-align: center;
+    border-radius: 2px;
+    line-height: 16px;
+    background: #e4e4e4;
+    display: inline-block;
+}
+
+.tag text {
+    font-size: 13px;
+    color: #787878;
+    font-weight: 400;
+    letter-spacing: 1rpx;
+}
+
+.user {
+    font-size: 14px;
+    margin-left: 14px;
+    margin-right: 7px;
+}
+
+.time {
+    float: right;
+    margin-right: 20px;
+    font-size: 13px;
+    color: #999
+}
+
+.title-box {
+    width: 720rpx;
+    height: 38px;
+    margin: 0 0 5px 15px;
+    line-height: 45px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.title {
+    width: inherit;
+    font-size: 16px;
+    color: #333
+}
+
+swiper {
+    margin: 0 5px;
+}
+
+.swiper {
+    height: 150px;
+}
+
+.swiper-img {
+    width: 100%;
+    height: 140px
+}
+
+.detail-text {
+    font-size: 15px;
+    word-break: break-all;
+}
+
+.detail-footer {
+    height: 30px;
+}
+
+.price {
+    margin-left: 10px;
+    font-size: 18px;
+    color: red;
+    line-height: 30px;
+}
+
+.contact {
+    font-size: 16px;
+    font-weight: bold;
+    float: right;
+    margin-right: 10px;
+    line-height: 30px;
+}
+
+.footer {
+    display: flex;
+    flex-direction: row;
+}
+
+.footer-img {
+    width: 28px;
+    height: 28px;
+    margin-left: 10px;
+}
+
+.img-box {
+    width: 12%;
+    display: inline-block;
+    text-align: center;
+}
+
+.up-img {
+    width: 22px;
+    height: 22px;
+    margin-right: 20px;
+    margin-top: 11px;
+    float: right;
+    opacity: 0;
+    transition: all .7s linear
+}
+
+.up-img-checked {
+    width: 22px;
+    height: 22px;
+    margin-right: 20px;
+    margin-top: 11px;
+    float: right;
+    transform: rotate(90deg);
+    opacity: 1;
+    transition: all .5s linear
+}

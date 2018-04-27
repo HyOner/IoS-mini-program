@@ -1,0 +1,14 @@
+<import src='../../template/ownItemTemplate/ownItem.wxml' />
+<view class="header">
+    <view class="box1"><text>我的收藏</text></view>
+    <view class="box2"><text>{{userInfo.nickName}} / {{userInfo.city}}</text></view>
+</view>
+
+<block wx:for="{{postData}}" wx:for-item="post">
+    <view class='{{postid===post.id?"item-checked":"item"}}' animation="{{postid===post.id?animationData:''}}">
+
+        <template is='ownItem' data="{{post:post,userInfo:userInfo,postid:postid}}"></template>
+
+    </view>
+
+</block>
