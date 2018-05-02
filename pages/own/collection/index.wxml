@@ -1,0 +1,14 @@
+<import src='../../../template/itemTemplate/item.wxml' />
+<view class="header">
+    <view class="box1"><text>我的收藏</text></view>
+    <view class="box2"><text>{{userInfo.nickName}} / {{postData.length?postData.length:'0'}}条喜欢</text></view>
+</view>
+
+<block wx:if="{{isDetailShow}}" wx:for="{{postData}}" wx:for-item="post" wx:for-index="itemid">
+    <view class='{{postid===itemid?"item-checked":"item"}}' animation="{{postid===itemid?animationData:''}}">
+
+        <template is='collectedItem' data="{{post:post,userInfo:userInfo,postid:postid,itemid:itemid}}"></template>
+
+    </view>
+
+</block>

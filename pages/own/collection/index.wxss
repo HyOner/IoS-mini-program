@@ -1,4 +1,4 @@
-@import '../../template/itemTemplate/item.wxss';
+@import '../../../template/itemTemplate/item.wxss';
 .header {
     box-sizing: border-box;
     height: 90px;

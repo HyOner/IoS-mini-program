@@ -5,6 +5,7 @@ App({
         wx.login({
             success: (res) => {
                 var code = res.code
+                this.globalData.code = code;
                 if (code) {
                     wx.getUserInfo({
                         success: (msg) => {
@@ -19,12 +20,14 @@ App({
                             };
 
                             //调用http函数, 发送请求获取openid
-                             //util.http(this.globalData.okayApiHost, 2, datas, this.processData);
+                            if (!wx.getStorageSync('openid')) {
+                                util.http(this.globalData.okayApiHost, 2, datas, this.processData);
+                            }
 
                             //绑定用户信息
-    this.globalData.userInfo = msg.userInfo;
- wx.setStorageSync('userInfo', msg.userInfo )
-                            
+                            this.globalData.userInfo = msg.userInfo;
+                            wx.setStorageSync('userInfo', msg.userInfo)
+
                         },
                         //若授权失败,调用重新获取授权的函数,让用户授权
                         fail: (res) => {
@@ -52,10 +55,7 @@ App({
 
     processData(data) {
         this.globalData.openid = data.data.openid;
-    wx.setStorageSync('openid',data.data.openid)
-
-        //获取到openid之后, 立马调用userInfoCreate函数将用户信息上传至后台储存
-        //this.userInfoUpload();
+        wx.setStorageSync('openid', data.data.openid)
 
     },
 
@@ -73,8 +73,8 @@ App({
             model_name: 'userInfo',
             s: 'App.Table.Create'
         };
-        
-          util.http(this.globalData.okayApiHost, 2, datas);
+
+        util.http(this.globalData.okayApiHost, 2, datas);
 
     },
 
@@ -89,9 +89,25 @@ App({
                         success: (res) => {
                             if (res.authSetting["scope.userInfo"]) {
                                 wx.getUserInfo({
-                                    success: (res) => {
-                                        var userInfo = res.userInfo;
-                                        this.globalData.userInfo = userInfo
+                                    success: (msg) => {
+
+                                        var encryptedData = msg.encryptedData,
+                                            iv = msg.iv;
+                                        var datas = {
+                                            s: 'App.Weixin.GetWeixinInfoMini',
+                                            iv: iv,
+                                            code: this.globalData.code,
+                                            encryptedData: encryptedData,
+                                        };
+
+                                        //调用http函数, 发送请求获取openid
+                                        if (!wx.getStorageSync('openid')) {
+                                            util.http(this.globalData.okayApiHost, 2, datas, this.processData);
+                                        }
+
+                                        //绑定用户信息
+                                        this.globalData.userInfo = msg.userInfo;
+                                        wx.setStorageSync('userInfo', msg.userInfo)
                                     }
                                 })
                             }
@@ -105,6 +121,7 @@ App({
     globalData: {
         userInfo: null,
         openid: null,
+        code: null,
         okayApiHost: 'https://hn2.api.okayapi.com',
         okayApiAppKey: 'CF4626A84A60BD59246201117ED75883',
         okayApiAppSecrect: 'NZMbvE81MLj976qNKdToBsiYfrJX7eSymxqCGJen7Qike6zLQEg4ZBk9rrrfvR0wD3N'

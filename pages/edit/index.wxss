@@ -103,7 +103,7 @@
 .radio-item {
     display: inline-block;
     margin-left: 30rpx;
-    border: 1px solid #999;
+    border: 1px solid #46cb84;
     width: 40px;
     text-align: center;
     border-radius: 4px;
@@ -123,8 +123,8 @@
 }
 
 /* 顶部弹出层特效 */
-
-.zan-toptips {
+ 
+.toptips {
     display: block;
     position: fixed;
     -webkit-transform: translateZ(0) translateY(-100%);
@@ -138,10 +138,27 @@
     background-color: #e64340;
     z-index: 110;
     opacity: 0;
-    transition: all .4s ease
+    transition: all .4s ease ;
 }
 
-.zan-toptips--show {
+.toptips-blue {
+    display: block;
+    position: fixed;
+    -webkit-transform: translateZ(0) translateY(-100%);
+    width: 100%;
+    min-height: 32px;
+    top: 0;
+    line-height: 2.3;
+    font-size: 14px;
+    text-align: center;
+    color: #fff;
+    z-index: 110;
+    opacity: 0;
+    transition: all .4s ease ;
+    background-color: #3d95ff;
+}
+
+.toptips--show {
     -webkit-transform: translateZ(0) translateY(0);
     opacity: 1
 }

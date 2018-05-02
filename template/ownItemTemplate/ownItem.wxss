@@ -19,18 +19,18 @@
 .tag {
     margin-left: 15px;
     height: 19px;
-    width: 34px;
+    width: 38px;
     text-align: center;
-    border-radius: 2px;
-    line-height: 16px;
-    background: #e4e4e4;
+    border-radius: 10px;
+    line-height: 15.5px;
+    background: #46cb84;
     display: inline-block;
 }
 
 .tag text {
     font-size: 13px;
-    color: #787878;
-    font-weight: 400;
+    color: white;
+    font-weight: 300;
     letter-spacing: 1rpx;
 }
 
@@ -50,7 +50,7 @@
 .title-box {
     width: 720rpx;
     height: 38px;
-    margin: 0 0 5px 15px;
+    margin: 0 0 0 15px;
     line-height: 45px;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -89,7 +89,7 @@ swiper {
 .price {
     margin-left: 10px;
     font-size: 18px;
-    color: red;
+    color: #ff640b;
     line-height: 30px;
 }
 
@@ -104,6 +104,7 @@ swiper {
 .footer {
     display: flex;
     flex-direction: row;
+    justify-content: flex-end
 }
 
 .footer-img {
@@ -113,9 +114,9 @@ swiper {
 }
 
 .img-box {
+    margin-right: 10px;
     width: 12%;
     display: inline-block;
-    text-align: center;
 }
 
 .up-img {

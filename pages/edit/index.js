@@ -20,7 +20,6 @@ Page({
       value: '兼职'
     }],
 
-    imgSrc: [],
     radioCheckVal: '',
 
     files: [{
@@ -73,47 +72,59 @@ Page({
         let datas = okayapi.enryptData(data);
         let url = app.globalData.okayApiHost + '/?s=App.CDN.UploadImg'
 
-        // wx.uploadFile({
-        //   url: url,
-        //   filePath: filePaths[0],
-        //   name: 'file',
-        //   header: { 'content-type': 'multipart/form-data'},
-        //   formData:datas,
-        //   success: function (wxRes) {           
-        //     let res = JSON.parse(wxRes.data);
-        //     if (res.data && res.data.err_code === 0) {
-        //     let imgSrc = that.data.imgSrc
-        //      imgSrc.push(res.data.url);
-        //      that.setData({imgSrc})
-        //   }
-        //      else {console.log('上传失败', res);}
-        //   }
-        // }) 
-
+        wx.uploadFile({
+          url: url,
+          filePath: filePaths[0],
+          name: 'file',
+          header: { 'content-type': 'multipart/form-data'},
+          formData:datas,
+          success: function (wxRes) {           
+            let res = JSON.parse(wxRes.data);
+            if (res.data && res.data.err_code === 0) {
+              // 将上传接口返回的图片url存到files中
+              let newFiles = that.data.files;
+              newFiles[0]['imgSrc'] = res.data.url
+              that.setData({files:newFiles})
+            }
+            else {console.log('上传失败', res);}
+          }
+        }) 
+        
       },
-
+      
       fail: function () {
-
+        
       }
     })
   },
 
   submitData(e) {
     let data = e.detail.value;
+    let imgSrc = [];
     data['userid'] = wx.getStorageSync('openid');
+    data['collected_count'] = 0;
+    let files = this.data.files
+    for (let i = 0; i < files.length; i++){
+      if (files[i].imgSrc) {
+        imgSrc.push(files[i].imgSrc)
+      }
+    }      
+    data['imgSrc'] = imgSrc
+
 
     if (this.checkEmpty(data)) {
 
       let datas = {
         data: JSON.stringify(data),
         key: 'postList',
-        keyword: data.title,
+        keyword: String(data.title+data.userid),
         s: 'App.Main_Set.Add'
       };
 
-
       util.http(app.globalData.okayApiHost, 2, datas, this.submitSuccess);
+
     }
+
   },
 
 
@@ -140,45 +151,48 @@ Page({
   radioChange(e) {
     this.setData({
       radioCheckVal: e.detail.value
-      
+
     })
   },
 
   submitSuccess() {
-    wx.showToast({
-      title: "发布成功",
-      icon: "success"
-    })
+    this.showTopTips('发布成功, 您可以继续发布或者前去查看', 2600,'blue')
+ 
   },
 
   deleteUploadImg(e) {
     let files = this.data.files
     let id = e.currentTarget.dataset.imgid
-    console.log(id);
-    
+
+
     if (id !== 4) {
-      files.pop(files[id+1]);
+      if(files.length>2){
+      files.pop(files[id + 1]);
+      files[id] = {
+        filePaths: '',
+        isFileReal: false,
+      } 
+      } else { files.pop(files[id]); } 
+    }
+    else {
       files[id] = {
         filePaths: '',
         isFileReal: false
       }
-    } else {
-    files[id] = {
-      filePaths: '',
-      isFileReal: false
-    }}
+    }
     this.setData({
-      files:files
+      files: files
     })
+    
   },
 
   //toptips弹出框
-  showTopTips(content = '', options = {}) {
-    let zanTopTips = this.data.zanTopTips || {};
+  showTopTips(content = '', options = {}, color = undefined) {
+    let topTips = this.data.topTips || {};
     // 如果已经有一个计时器在了，就清理掉先
-    if (zanTopTips.timer) {
-      clearTimeout(zanTopTips.timer);
-      zanTopTips.timer = 0;
+    if (topTips.timer) {
+      clearTimeout(topTips.timer);
+      topTips.timer = 0;
     }
 
     if (typeof options === 'number') {
@@ -195,15 +209,16 @@ Page({
     // 设置定时器，定时关闭topTips
     let timer = setTimeout(() => {
       this.setData({
-        'zanTopTips.show': false,
-        'zanTopTips.timer': 0
+        'topTips.show': false,
+        'topTips.timer': 0
       });
     }, options.duration);
 
     // 展示出topTips
     this.setData({
-      zanTopTips: {
+      topTips: {
         show: true,
+        color,
         content,
         options,
         timer

@@ -1,45 +1,51 @@
 @import '../../template/itemTemplate/item.wxss';
-page{
-background: #f8f8f8
+page {
+  background: #f8f8f8
 }
 
 .header {
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 92px;
+  height: 82px;
   background-color: white;
-  padding-top: 6px;
+  padding-bottom: 10px;
+}
+
+.search-box {
+  display: flex;
+  margin-top: 20px;
+  margin-bottom: 5px;
+  height: 40px;
 }
 
 .searchBar {
   box-sizing: border-box;
   width: 90%;
-  height: 35px;
-  margin: 10px auto;
+  height: 32px;
+  margin: auto auto;
   border-radius: 8px;
   background-color: #ededef;
   font-size: 15px;
-  padding-left: 60rpx;
-}
-
-.search-box {
-  width: 75px;
-  height: 50rpx;
-  position: absolute;
-  left: 300rpx;
-  top: 23px;
-  z-index: 10;
-  transition: all .3s
+  padding-left: 56rpx;
 }
 
 .search-img {
-  margin-right: 14rpx;
   position: relative;
-  top: 1px;
-  width: 40rpx;
-  height: 40rpx;
+  top: 6px;
+  width: 20px;
+  height: 20px;
   display: inline-block;
+}
+
+.close {
+  position: relative;
+  left: -25px;
+  top: 6px;
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  
 }
 
 .search-text {
@@ -49,17 +55,17 @@ background: #f8f8f8
 .navBar {
   display: flex;
   width: 140px;
-  margin-top: 7px;
-  margin-left:7px;
+  margin-top: 12px;
+  margin-left: 7px;
 }
 
 .navText {
   width: 33.333%;
   text-align: center;
-  color:#999;
+  color: #999;
 }
 
-.navText-checked{
+.navText-checked {
   width: 33.333%;
   text-align: center;
   color: #333;
@@ -69,8 +75,8 @@ background: #f8f8f8
 .navLine {
   width: 33px;
   border-top: 2px solid #46cb84;
-  position: absolute;
-  top: 90px;
+  position: relative;
+  top: 4px;
   transition: all .3s;
 }
 
@@ -81,9 +87,9 @@ background: #f8f8f8
   height: 76px;
   overflow: hidden;
   box-sizing: border-box;
-  /* margin-top: 6px; */
-  background: #f8f8f8;
+  background: #fff;
   border-radius: 4px;
+  margin: 10px 0;
 }
 
 .item-checked {
@@ -93,7 +99,29 @@ background: #f8f8f8
   height: 76px;
   overflow: hidden;
   box-sizing: border-box;
-  /* margin-top: 6px; */
   border-radius: 4px;
   background: #ededef
+}
+
+/* 顶部弹出层特效 */
+.toptips {
+  display: block;
+  position: fixed;
+  -webkit-transform: translateZ(0) translateY(-100%);
+  width: 100%;
+  min-height: 32px;
+  top: 0;
+  line-height: 2.3;
+  font-size: 14px;
+  text-align: center;
+  color: #fff;
+  background-color: #e64340;
+  z-index: 110;
+  opacity: 0;
+  transition: all .4s ease;
+}
+
+.toptips--show {
+  -webkit-transform: translateZ(0) translateY(0);
+  opacity: 1
 }

@@ -9,9 +9,9 @@
 }
 
 .virImg {
-    margin: 8px 17px 0 16px;
-    width: 27px;
-    height: 27px;
+    margin: 8px 17px 3px 16px;
+    width: 24px;
+    height: 24px;
 }
 
 .upload text {

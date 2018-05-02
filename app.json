@@ -1,23 +1,26 @@
 {
   "pages": [
     "pages/home/index",
-    "pages/own/index",
+    "pages/own/collection/index",
+    "pages/own/release/index",
+    "pages/own/copyright/index",
     "pages/edit/index",
     "pages/user/index"
   ],
   "window": {
+    "babkgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#46cb84",
     "navigationBarTitleText": "IoS"
   },
   "tabBar": {
-    "color": "#999",
-    "selectedColor": "#999",
+    "color": "#8a8a8a",
+    "selectedColor": "#46cb84",
     "borderStyle": "white",
-    "list": [
-      {
+    "list": [{
         "pagePath": "pages/home/index",
         "iconPath": "/data/images/interactive.png",
         "selectedIconPath": "/data/images/interactive_fill.png"
+
       },
       {
         "pagePath": "pages/edit/index",
@@ -30,5 +33,9 @@
         "selectedIconPath": "/data/images/mine_fill.png"
       }
     ]
+  },
+  "networkTimeout": {
+    "request": 15000,
+    "downloadFile": 15000
   }
 }

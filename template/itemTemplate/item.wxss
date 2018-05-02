@@ -50,7 +50,7 @@
 .title-box {
     width: 720rpx;
     height: 38px;
-    margin: 0 0 5px 15px;
+    margin: 0 0 0 15px;
     line-height: 45px;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -104,6 +104,7 @@ swiper {
 .footer {
     display: flex;
     flex-direction: row;
+    justify-content: flex-end
 }
 
 .footer-img {
@@ -113,9 +114,10 @@ swiper {
 }
 
 .img-box {
+    margin-right: 10px;
     width: 12%;
     display: inline-block;
-    text-align: center;
+    
 }
 
 .up-img {

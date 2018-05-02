@@ -1,11 +1,13 @@
 <import src='../../template/itemTemplate/item.wxml' />
 <view class="header">
+<view class="search-box">
+    <image class="search-img" src="../../data/images/find.png" style="left:48rpx"></image> 
+    <input class="searchBar" value="{{inputValue}}" bindinput="onInput" bindconfirm="searchPost" placeholder="找找你感兴趣的吧" />
+    <image wx:if="{{isCloseShow}}" src="../../data/images/close.png" class="close" catch:tap="closeSearch"/>
+    <image wx:if="{{!isCloseShow}}" class="close" />
+   
+</view>
 
-  <view class="search-box" style="left:48rpx" catch:tap="onTapSearch">
-    <image class="search-img" src="../../data/images/find.png"></image>
-  </view>
-
-  <input class="searchBar" bindinput="onInput" placeholder="搜一搜你感兴趣的吧"/>
   <view class='navBar'>
     <text class="{{checkedTextIndex===1?'navText-checked':'navText'}}" data-navId='1' bindtap='onTapNav'>All</text>
     <text class="{{checkedTextIndex===2?'navText-checked':'navText'}}" data-navId='2' bindtap='onTapNav'>In</text>
@@ -14,11 +16,12 @@
   <view class='navLine' style='left:{{navLineMove}}px'></view>
 </view>
 
-<block wx:for="{{postData}}" wx:for-item="post">
-  <view class='{{postid===post.id?"item-checked":"item"}}' animation="{{postid===post.id?animationData:''}}">
+<block  wx:if="{{isDetailShow}}" wx:for="{{postData}}" wx:for-item="post" wx:for-index="itemid">
+  <view class='{{postid===itemid?"item-checked":"item"}}' animation="{{postid===itemid?animationData:''}}">
 
-    <template is='item' data="{{post:post,userInfo:userInfo,postid:postid}}"></template>
+    <template is='item' data="{{post:post,userInfo:userInfo,postid:postid,itemid:itemid}}"></template>
 
   </view>
 
 </block>
+<view class="toptips {{topTips.show? 'toptips--show':''}}">{{topTips.content}}</view>

@@ -42,4 +42,6 @@
 </form>
 
 <!-- 顶部弹出通知 -->
-<view class="zan-toptips {{ zanTopTips.show ? 'zan-toptips--show' : '' }}">{{ zanTopTips.content }}</view>
+<view wx:if="{{topTips.color==='blue'}}" class="toptips-blue {{ topTips.show ? 'toptips--show' : '' }}">{{ topTips.content }}</view>
+
+<view wx:else class="toptips {{ topTips.show ? 'toptips--show' : '' }}">{{ topTips.content }}</view>

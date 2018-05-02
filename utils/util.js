@@ -37,9 +37,10 @@ function http(url, type, datas, callBack) {
             }
         },
         fail: (wxRes) => {
-            wx.showModal({
+        
+            wx.showToast({
                 title: `error:${wxRes.errMsg}`,
-                icon: none
+                 icon: 'none'
             });
         }
 

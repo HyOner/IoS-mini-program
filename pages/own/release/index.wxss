@@ -1,0 +1,52 @@
+@import '../../../template/itemTemplate/item.wxss';
+.header {
+    box-sizing: border-box;
+    height: 90px;
+    padding-top: 10px;
+    padding-bottom: 15px
+}
+
+.box1 {
+    height: 36px;
+    text-align: center;
+}
+
+.box1 text {
+    color: #333;
+    font-size: 24px;
+    line-height: 40px;
+}
+
+.box2 {
+    height: 20px;
+    text-align: center;
+}
+
+.box2 text {
+    color: #999;
+    line-height: 20px;
+}
+
+.item {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 76px;
+    overflow: hidden;
+    box-sizing: border-box;
+    /* margin-top: 6px; */
+    background: #f8f8f8;
+    border-radius: 4px;
+}
+
+.item-checked {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 76px;
+    overflow: hidden;
+    box-sizing: border-box;
+    /* margin-top: 6px; */
+    border-radius: 4px;
+    background: #ededef
+}
