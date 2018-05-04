@@ -2,20 +2,20 @@
     <view class="item-container">
 
 
-        <view class="introduction">
+        <view class="introduction" catch:tap='onTapDetail' data-postid="{{itemid}}">
 
-            <view class='title-box' catch:tap='onTapDetail' data-postid="{{itemid}}">
+            <view class='title-box'>
                 <text class='title'>{{post.data.title}}</text>
                 <image class='{{postid===itemid?"up-img-checked":"up-img"}}' src='../../data/images/packup.png' catch:tap="onTapUp" data-postid="{{itemid}}"></image>
             </view>
-         
+
 
             <view class="sbox">
                 <view class='tag'>
                     <text>{{post.data.category==1?'闲置':(post.data.category==2?'求助':(post.data.category==3?'转赠':(post.data.category==4?'兼职':'其他')))}}</text>
                 </view>
 
-                <text class='user'>{{userInfo.nickName}}</text>
+                <text class='user'>{{post.data.user}}</text>
                 <text>/</text>
                 <text style="margin-left:7px;font-size:14px;color:#666;">{{post.data.collected_count}}</text>
                 <text style="letter-spacing:1rpx;color:#666;font-size:12px;">人喜欢</text>
@@ -25,13 +25,13 @@
         </view>
 
         <view class='swiper' wx:if="{{post.data.imgSrc.length}}">
-        <swiper indicator-dots='true' display-multiple-items="{{post.data.imgSrc.length>1?2:1}}">
-            <block wx:for="{{post.data.imgSrc}}" wx:for-item="imgItem">
-            <swiper-item>
-                <image class="swiper-img" src='{{imgItem}}'></image>
-            </swiper-item>
-            </block>
-        </swiper>
+            <swiper indicator-dots='true' display-multiple-items="{{post.data.imgSrc.length>1?2:1}}">
+                <block wx:for="{{post.data.imgSrc}}" wx:for-item="imgItem">
+                    <swiper-item>
+                        <image wx:if="{{imgItem}}" class="swiper-img" src='{{imgItem}}'></image>
+                    </swiper-item>
+                </block>
+            </swiper>
         </view>
 
 
@@ -43,7 +43,8 @@
                 </view>
 
                 <view class='img-box'>
-                    <image class='footer-img' src="{{post.postCollected?'../../data/images/like_fill.png':'../../data/images/like.png'}}" catch:tap='collectPost' data-postid="{{itemid}}"></image>
+                    <image class='footer-img' src="{{post.postCollected?'../../data/images/like_fill.png':'../../data/images/like.png'}}" catch:tap='collectPost'
+                        data-postid="{{itemid}}"></image>
                 </view>
 
 
@@ -67,9 +68,9 @@
     <view class="item-container">
 
 
-        <view class="introduction">
+        <view class="introduction" catch:tap='onTapDetail' data-postid="{{itemid}}">
 
-            <view class='title-box' catch:tap='onTapDetail' data-postid="{{itemid}}">
+            <view class='title-box'>
                 <text class='title'>{{post.data.title}}</text>
                 <image class='{{postid===itemid?"up-img-checked":"up-img"}}' src='../../../data/images/packup.png' catch:tap="onTapUp" data-postid="{{itemid}}"></image>
             </view>
@@ -80,7 +81,7 @@
                     <text>{{post.data.category==1?'闲置':(post.data.category==2?'求助':(post.data.category==3?'转赠':(post.data.category==4?'兼职':'其他')))}}</text>
                 </view>
 
-                <text class='user'>{{userInfo.nickName}}</text>
+                <text class='user'>{{post.data.user}}</text>
                 <text>/</text>
                 <text style="margin-left:7px;font-size:14px;color:#666;">{{post.data.collected_count}}</text>
                 <text style="letter-spacing:1rpx;color:#666;font-size:12px;">人喜欢</text>
@@ -93,7 +94,7 @@
             <swiper indicator-dots='true' display-multiple-items="{{post.data.imgSrc.length>1?2:1}}">
                 <block wx:for="{{post.data.imgSrc}}" wx:for-item="imgItem">
                     <swiper-item>
-                        <image class="swiper-img" src='{{imgItem}}'></image>
+                        <image wx:if="{{imgItem}}" class="swiper-img" src='{{imgItem}}'></image>
                     </swiper-item>
                 </block>
             </swiper>
@@ -108,8 +109,8 @@
                 </view>
 
                 <view class='img-box'>
-                    <image class='footer-img' src="{{post.postCollected?'../../../data/images/like_fill.png':'../../../data/images/like.png'}}" catch:tap='collectPost'
-                        data-postid="{{itemid}}"></image>
+                    <image class='footer-img' src="{{post.postCollected?'../../../data/images/like_fill.png':'../../../data/images/like.png'}}"
+                        catch:tap='collectPost' data-postid="{{itemid}}"></image>
                 </view>
 
 
@@ -133,9 +134,9 @@
     <view class="item-container">
 
 
-        <view class="introduction">
+        <view class="introduction" catch:tap='onTapDetail' data-postid="{{itemid}}">
 
-            <view class='title-box' catch:tap='onTapDetail' data-postid="{{itemid}}">
+            <view class='title-box'>
                 <text class='title'>{{post.data.title}}</text>
                 <image class='{{postid===itemid?"up-img-checked":"up-img"}}' src='../../../data/images/packup.png' catch:tap="onTapUp" data-postid="{{itemid}}"></image>
             </view>
@@ -146,7 +147,7 @@
                     <text>{{post.data.category==1?'闲置':(post.data.category==2?'求助':(post.data.category==3?'转赠':(post.data.category==4?'兼职':'其他')))}}</text>
                 </view>
 
-                <text class='user'>{{userInfo.nickName}}</text>
+                <text class='user'>{{post.data.user}}</text>
                 <text>/</text>
                 <text style="margin-left:7px;font-size:14px;color:#666;">{{post.data.collected_count}}</text>
                 <text style="letter-spacing:1rpx;color:#666;font-size:12px;">人喜欢</text>
@@ -159,7 +160,7 @@
             <swiper indicator-dots='true' display-multiple-items="{{post.data.imgSrc.length>1?2:1}}">
                 <block wx:for="{{post.data.imgSrc}}" wx:for-item="imgItem">
                     <swiper-item>
-                        <image class="swiper-img" src='{{imgItem}}'></image>
+                        <image wx:if="{{imgItem}}" class="swiper-img" src='{{imgItem}}'></image>
                     </swiper-item>
                 </block>
             </swiper>
@@ -174,8 +175,7 @@
                 </view>
 
                 <view class='img-box'>
-                    <image class='footer-img' src="../../../data/images/delete.png"
-                        catch:tap='deletePost' data-postid="{{itemid}}"></image>
+                    <image class='footer-img' src="../../../data/images/delete.png" catch:tap='deletePost' data-postid="{{itemid}}"></image>
                 </view>
 
 

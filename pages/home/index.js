@@ -28,38 +28,47 @@ Page({
   },
 
   onReady: function (options) {
-    let userInfo = wx.getStorageSync('userInfo') || {
-      nickName: 'Mr.Nobody',
-      avatarUrl: '../../data/images/mine.png'
-    }
-    let openid = wx.getStorageSync('openid')
-    this.setData({
-      userInfo: userInfo,
-      openid: openid
-    })
-
+    
   },
 
   onShow: function (options) {
+
+    if (wx.getStorageSync('editData')) {
+      wx.removeStorageSync('editData')
+    } 
+
     this.animation = wx.createAnimation({
       duration: 500,
       timingFunction: "linear"
     })
-   
-    wx.showNavigationBarLoading();
+      
     let datas = [];
     datas['key'] = 'postList'
     datas['s'] = 'App.Main_Set.GetList'
     datas['sort'] = 2
     util.http(app.globalData.okayApiHost, 2, datas, this.poccessData)
-    wx.hideNavigationBarLoading();
 
   },
 
+  onHide:function (options) {
+    //重置动画效果
+    if (this.data.postid != null) {
+
+      this.animation.height(76).step({
+        duration: 500
+      })
+      this.setData({
+        animationData: this.animation.export()
+      })
+      this.setData({
+        postid: null
+      });
+    }
+    
+  },
+
   onPullDownRefresh() {
-    this.setData({
-      poccessDataDone: false
-    });
+
     wx.showNavigationBarLoading();
 
     let datas = [];
@@ -68,10 +77,16 @@ Page({
     datas['sort'] = 2
     util.http(app.globalData.okayApiHost, 2, datas, this.poccessData)
 
-    if (this.data.poccessDataDone) {
+    let foo = 1
+    while (foo) {
+      if(this.data.poccessDataDone){
       wx.hideNavigationBarLoading();
       wx.stopPullDownRefresh();
-    }
+      foo = 0
+    }}
+    this.setData({
+      poccessDataDone: false
+    });
   },
   onReachBottom() {
 
@@ -79,7 +94,7 @@ Page({
   poccessData(res) {
     //数据处理函数:改变时间显示格式, 添加item收藏状态数据 
     let postCollected = wx.getStorageSync('postCollected') || {}
-//将用户本地缓存中对各帖子收藏状态记录的id取出来放到一个数组中, 以便之后拿来判断
+    //将用户本地缓存中对各帖子收藏状态记录的id取出来放到一个数组中, 以便之后拿来判断
     let collectedArray = []
     for (let key in postCollected) {
       collectedArray.push(Number(key))
@@ -87,15 +102,25 @@ Page({
 
     //遍历每个post数据的add_time,将它们转化成'几天前' 
     for (let i = 0, length = res.data.items.length; i < length; i++) {
-      let date = res.data.items[i].add_time
+      let date = res.data.items[i].update_time || res.data.items[i].add_time
       //调用时间处理函数进行相关类型转换
       res.data.items[i].add_time = this.poccessDate(date);
+
+      //收藏相关逻辑, 先获取缓存里面postCollected各帖子的收藏状态, 然后进行数据绑定与预置
       if (collectedArray.indexOf(Number(res.data.items[i].id)) > 0) {
         let collectedid = res.data.items[i].id
         if (postCollected[collectedid]) {
           res.data.items[i]['postCollected'] = true;
         } else { res.data.items[i]['postCollected'] = false}
       } else res.data.items[i]['postCollected'] = false
+
+      //将url为空的imgSrc剔除出去
+      let imgSrc = res.data.items[i].data.imgSrc
+      for(let j=0;j<imgSrc.length;j++){
+        if (!imgSrc[j]) {imgSrc.splice(j,1)}
+      }
+      res.data.items[i].data.imgSrc = imgSrc
+
     }
 
     wx.setStorageSync('postData', res.data.items)

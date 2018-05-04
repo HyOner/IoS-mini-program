@@ -1,10 +1,10 @@
 <import src="../../template/uploadBox/upload.wxml" />
 <form bindsubmit="submitData">
 
-    <input name="title" class="title" placeholder="写点东西放标题吧" placeholder-style="font-size:15px;color:#666" maxlength="40" confirm-hold="true" confirm-type="next" data-inputid="1"></input>
+    <input name="title" class="title" placeholder="写点东西放标题吧" placeholder-style="font-size:15px;color:#666" maxlength="40" confirm-hold="true" confirm-type="next" data-inputid="1" value="{{editData.title}}"></input>
     <view class="line"></view>
     <view class="content-box">
-        <textarea name="content" class="content" placeholder="这一刻, 你的想法..." data-inputid="2"></textarea>
+        <textarea name="content" class="content" placeholder="这一刻, 你的想法..." data-inputid="2" value="{{editData.content}}"></textarea>
         <view class="line"></view>
     </view>
     
@@ -15,12 +15,12 @@
 
     <view class='input-box'>
         <text>联系方式：</text>
-        <input name="contact" class="contact" placeholder="qq, 微信号或手机号码" placeholder-style="font-size:14px;color:#666" data-inputid="3"></input>
+        <input name="contact" class="contact" placeholder="qq, 微信号或手机号码" placeholder-style="font-size:14px;color:#666" data-inputid="3" value="{{editData.contact}}"></input>
     </view>
 
     <view class='input-box'>
         <text>价格或酬金：</text>
-        <input name="price" class="contact" type="digit" placeholder="可不填" placeholder-style="font-size:14px;color:#666"></input>
+        <input name="price" class="contact" placeholder="可不填" placeholder-style="font-size:14px;color:#666" value="{{editData.price}}"></input>
     </view>
 
     <view class="radio-box">

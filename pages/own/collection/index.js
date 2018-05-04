@@ -38,7 +38,7 @@ Page({
     let datas = [];
     datas['key'] = openid
     datas['s'] = 'App.Main_Set.GetList'
-    datas['sort'] = 1
+    datas['sort'] = 2
 
     util.http(app.globalData.okayApiHost, 2, datas, this.poccessData);
 
@@ -65,6 +65,13 @@ Page({
       //调用时间处理函数进行相关类型转换
       res.data.items[i].add_time = this.poccessDate(date);
       res.data.items[i]['postCollected'] = true
+      //将url为空的imgSrc剔除出去
+      let imgSrc = res.data.items[i].data.imgSrc
+      for (let j = 0; j < imgSrc.length; j++) {
+        if (!imgSrc[j]) { imgSrc.splice(j, 1) }
+      }
+      res.data.items[i].data.imgSrc = imgSrc
+
     }
     this.setData({
       postData: res.data.items,

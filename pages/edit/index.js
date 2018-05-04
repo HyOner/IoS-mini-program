@@ -21,6 +21,7 @@ Page({
     }],
 
     radioCheckVal: '',
+    isEdit: false,
 
     files: [{
       filePaths: '',
@@ -31,11 +32,58 @@ Page({
 
 
   onLoad: function (options) {
+    let userInfo = wx.getStorageSync('userInfo') || {
+      nickName: 'Mr.Nobody',
+      avatarUrl: '../../data/images/mine.png'
+    }
+    this.setData({
+      userInfo: userInfo,
+    })
 
   },
 
 
-  onReady: function () {
+  onShow: function () {
+    let editData = wx.getStorageSync('editData')
+    let files = this.data.files;
+
+
+    if (editData) {
+      if (editData.data.imgSrc.length) {
+        for (let i = editData.data.imgSrc.length - 1; i >= 0; i--) {
+          files[i] = {
+            filePaths: editData.data.imgSrc[i],
+            imgSrc: editData.data.imgSrc[i],
+            isFileReal: true,
+          }
+        }
+        //判断一个对象数组中是否存在某个对象, 可将他们都转为string, 用indexof来检测
+        if (JSON.stringify(files).indexOf(JSON.stringify({
+            filePaths: '',
+            isFileReal: false
+          })) === -1) {
+          files.push({
+            filePaths: '',
+            isFileReal: false
+          })
+        }
+
+      }
+
+      this.setData({
+        editData: editData.data,
+        isEdit: true,
+        files: files
+      })
+    } 
+   
+  },
+
+  onHide: function () {
+
+  },
+
+  onUnload: function () {
 
   },
 
@@ -48,7 +96,8 @@ Page({
       sourceType: ['album', 'camera'],
       success: function (res) {
         let filePaths = res.tempFilePaths;
-
+        let uploadImg = res.tempFiles[0];
+        
         if (files.length < 6) {
           if (files.length === 5) {
             files[4] = {
@@ -61,86 +110,134 @@ Page({
               isFileReal: true
             })
           }
-          that.setData({
-            files: files
-          })
         }
 
+          if (wx.getStorageSync('editData')) {
+            let editData = wx.getStorageSync('editData')
+            let imgSrc = editData.data.imgSrc || []
+            imgSrc.unshift(filePaths[0]);
+            wx.setStorageSync('editData', editData)
+          } 
+
         let data = {
-          s: 'App.CDN.UploadImg'
+          s: 'App.CDN.UploadImg' 
         }
-        let datas = okayapi.enryptData(data);
+        let datas = okayapi.enryptData(data);   
+        
         let url = app.globalData.okayApiHost + '/?s=App.CDN.UploadImg'
 
         wx.uploadFile({
           url: url,
           filePath: filePaths[0],
           name: 'file',
-          header: { 'content-type': 'multipart/form-data'},
-          formData:datas,
-          success: function (wxRes) {           
+          header: {
+            'content-type': 'multipart/form-data'
+          },
+          formData: datas,
+          success: function (wxRes) {
             let res = JSON.parse(wxRes.data);
             if (res.data && res.data.err_code === 0) {
               // 将上传接口返回的图片url存到files中
-              let newFiles = that.data.files;
+              let newFiles = files;
               newFiles[0]['imgSrc'] = res.data.url
-              that.setData({files:newFiles})
+              that.setData({
+                files: newFiles
+              })
+              
+            } else {
+              console.log('上传失败', res);
             }
-            else {console.log('上传失败', res);}
           }
-        }) 
-        
+        })
+
       },
-      
+
       fail: function () {
-        
+
       }
     })
   },
-
+/* 更新帖子有两点bug待解决: 1.不能先输文字信息, 只能先更换图片, 不然输的文字信息会被onshow函数重置; 2.收藏状态不能更新 */
   submitData(e) {
     let data = e.detail.value;
     let imgSrc = [];
     data['userid'] = wx.getStorageSync('openid');
+    data['user'] = this.data.userInfo.nickName;
     data['collected_count'] = 0;
     let files = this.data.files
-    for (let i = 0; i < files.length; i++){
-      if (files[i].imgSrc) {
-        imgSrc.push(files[i].imgSrc)
-      }
-    }      
-    data['imgSrc'] = imgSrc
 
+    if (files.length > 1) {
+      let databaseImgSRCLength
+      if (this.data.editData && this.data.editData.imgSrc){
+       databaseImgSRCLength = this.data.editData.imgSrc.length}
+      else {  databaseImgSRCLength = 0}
+      for (let i = 0; i < files.length; i++) {
+        if (files[i].imgSrc) {
+          imgSrc.push(files[i].imgSrc)
+        }}
+      if (imgSrc.length < databaseImgSRCLength) {
+        for (let j = imgSrc.length; j < databaseImgSRCLength; j++){
+          imgSrc[j] = "";
+        }}
+      data['imgSrc'] = imgSrc
+    } else {
+      data['imgSrc'] = ''
+    }
 
+    //发布前先检空
     if (this.checkEmpty(data)) {
+      //如果是发布不是更新
+      if (!this.data.isEdit) {
+        let datas = {
+          data: JSON.stringify(data),
+          key: 'postList',
+          keyword: String(data.title + data.userid),
+          s: 'App.Main_Set.Add'
+        };
 
-      let datas = {
-        data: JSON.stringify(data),
-        key: 'postList',
-        keyword: String(data.title+data.userid),
-        s: 'App.Main_Set.Add'
-      };
+        util.http(app.globalData.okayApiHost, 2, datas, this.submitSuccess);
 
-      util.http(app.globalData.okayApiHost, 2, datas, this.submitSuccess);
+      } //如果是更新
+      else {
+        let updateData = data;
+        let editData = wx.getStorageSync('editData')
+        updateData.collected_count = editData.data.collected_count || 0;
+        if (!updateData.category){
+          updateData.category = editData.data.category
+        }
+        let datas = {
+          s: 'App.Main_Set.Update',
+          id: editData.id,
+          data: JSON.stringify(updateData)
+        }
+        this.setData({
+          isEdit: false
+        })
 
+        util.http(app.globalData.okayApiHost, 2, datas, this.submitSuccess);
+      }
+    }
+
+    if (wx.getStorageSync('editData')) {
+      wx.removeStorageSync('editData')
     }
 
   },
 
 
   checkEmpty(e) {
-    let content = e.content.trim();
+    let title = e.title.trim();
     let contact = e.contact.trim();
 
     if (contact === '') {
-      if (content === '') {
-        this.showTopTips('至少说一下你的想法吧', 2500)
+      if (title === '') {
+        this.showTopTips('至少写上标题吧', 2500)
       } else {
         this.showTopTips('为了诚意,请留下联系方式', 2500)
       }
     } else {
-      if (content === '') {
-        this.showTopTips('写点什么表达下你的想法吧', 2500)
+      if (title === '') {
+        this.showTopTips('标题写点什么说明下你的想法吧', 2500)
       } else {
         return true
       }
@@ -156,25 +253,17 @@ Page({
   },
 
   submitSuccess() {
-    this.showTopTips('发布成功, 您可以继续发布或者前去查看', 2600,'blue')
- 
+    this.showTopTips('发布成功, 您可以继续发布或者前去查看', 2600, 'blue')
+
   },
 
   deleteUploadImg(e) {
     let files = this.data.files
     let id = e.currentTarget.dataset.imgid
 
-
-    if (id !== 4) {
-      if(files.length>2){
-      files.pop(files[id + 1]);
-      files[id] = {
-        filePaths: '',
-        isFileReal: false,
-      } 
-      } else { files.pop(files[id]); } 
-    }
-    else {
+    if (id < 4) {
+      files.splice(id, 1);
+    } else {
       files[id] = {
         filePaths: '',
         isFileReal: false
@@ -183,7 +272,13 @@ Page({
     this.setData({
       files: files
     })
-    
+
+    if (wx.getStorageSync('editData')) {
+      let editData = wx.getStorageSync('editData')
+      editData.data.imgSrc.splice(id, 1);
+      wx.setStorageSync('editData', editData)
+    }
+
   },
 
   //toptips弹出框

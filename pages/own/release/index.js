@@ -38,7 +38,7 @@ Page({
     datas['key'] = 'postList'
     datas['keyword'] = openid
     datas['s'] = 'App.Main_Set.Query'
-    datas['sort'] = 1
+    datas['sort'] = 2
 
     util.http(app.globalData.okayApiHost, 2, datas, this.poccessData);
 
@@ -47,10 +47,15 @@ Page({
   poccessData(res) {
     //遍历每个post数据的add_time,将它们转化成'几天前' 
     for (let i = 0, length = res.data.items.length; i < length; i++) {
-      let date = res.data.items[i].add_time
+      let date = res.data.items[i].update_time || res.data.items[i].add_time
       //调用时间处理函数进行相关类型转换
       res.data.items[i].add_time = this.poccessDate(date);
-      res.data.items[i]['postCollected'] = true
+      //将url为空的imgSrc剔除出去
+      let imgSrc = res.data.items[i].data.imgSrc
+      for (let j = 0; j < imgSrc.length; j++) {
+        if (!imgSrc[j]) { imgSrc.splice(j, 1) }
+      }
+      res.data.items[i].data.imgSrc = imgSrc
     }
     this.setData({
       postData: res.data.items,
@@ -87,11 +92,41 @@ Page({
       confirmColor: "#d01714",
       cancelText: "留着",
       success: (res) => {
-        if(res.confirm){
-        util.http(app.globalData.okayApiHost, 2, datas);
+        if (res.confirm) {
+          
+          if (this.data.postid != null) {
+
+            this.animation.height(76).step({
+              duration: 500
+            })
+            this.setData({
+              animationData: this.animation.export()
+            })
+            this.setData({
+              postid: null
+            });
+          }
+
+          util.http(app.globalData.okayApiHost, 2, datas);
           data.splice(postid, 1)
-          this.setData({ postData: data })}
+          this.setData({
+            postData: data
+          })
+        }
       }
+    })
+  },
+
+  editPost(e) {
+    if (wx.getStorageSync('editData')) {
+      wx.removeStorageSync('editData')
+    }
+    let postid = e.currentTarget.dataset.postid;
+    let editData = this.data.postData[postid];
+    wx.setStorageSync('editData', editData)
+
+    wx.switchTab({
+      url: "../../../pages/edit/index"
     })
   },
 

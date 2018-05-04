@@ -100,7 +100,8 @@ page {
   overflow: hidden;
   box-sizing: border-box;
   border-radius: 4px;
-  background: #ededef
+  background: #ededef;
+
 }
 
 /* 顶部弹出层特效 */
