@@ -38,7 +38,7 @@ Page({
     datas['key'] = 'postList'
     datas['keyword'] = openid
     datas['s'] = 'App.Main_Set.Query'
-    datas['sort'] = 2
+    datas['sort'] = '6'
 
     util.http(app.globalData.okayApiHost, 2, datas, this.poccessData);
 

@@ -1,11 +1,12 @@
 {
   "pages": [
     "pages/home/index",
+    "pages/user/index",
+    "pages/edit/index",
     "pages/own/collection/index",
     "pages/own/release/index",
     "pages/own/copyright/index",
-    "pages/edit/index",
-    "pages/user/index"
+    "pages/own/share/index"
   ],
   "window": {
     "babkgroundTextStyle": "dark",
@@ -16,11 +17,11 @@
     "color": "#8a8a8a",
     "selectedColor": "#46cb84",
     "borderStyle": "white",
-    "list": [{
+    "list": [
+      {
         "pagePath": "pages/home/index",
         "iconPath": "/data/images/interactive.png",
         "selectedIconPath": "/data/images/interactive_fill.png"
-
       },
       {
         "pagePath": "pages/edit/index",

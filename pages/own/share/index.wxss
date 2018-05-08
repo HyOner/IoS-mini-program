@@ -1,0 +1,35 @@
+@import '../../../template/shareTemplate/shareItem.wxss';
+
+.header {
+    box-sizing: border-box;
+    height: 90px;
+    padding-top: 24px;
+    padding-bottom: 15px;
+    width: 100%;
+    text-align: center;
+}
+
+.header text {
+    color: #333;
+    font-size: 24px;
+    line-height: 40px;
+}
+
+.item {
+    display: flex;
+    flex-direction: column;
+    width: 96.5%;
+    box-sizing: border-box;
+    margin-left: 4px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 2px 1px 2px 2px rgba(0,0,0,0.2)
+}
+
+.button {
+    width: 100px;
+    position: relative;
+    left: 37%;
+    top:80px;
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2)
+}

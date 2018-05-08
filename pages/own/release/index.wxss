@@ -1,4 +1,8 @@
 @import '../../../template/itemTemplate/item.wxss';
+page {
+    background: #ededef
+}
+
 .header {
     box-sizing: border-box;
     height: 90px;
@@ -36,7 +40,7 @@
     box-sizing: border-box;
     background: #f8f8f8;
     border-radius: 4px;
-    margin: 10px 0;
+    margin-top: 4px;
 }
 
 .item-checked {

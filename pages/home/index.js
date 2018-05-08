@@ -22,7 +22,7 @@ Page({
     let datas = [];
     datas['key'] = 'postList'
     datas['s'] = 'App.Main_Set.GetList'
-    datas['sort'] = 2
+    datas['sort'] = '6'
 
     util.http(app.globalData.okayApiHost, 2, datas, this.poccessData);
   },
@@ -45,7 +45,7 @@ Page({
     let datas = [];
     datas['key'] = 'postList'
     datas['s'] = 'App.Main_Set.GetList'
-    datas['sort'] = 2
+    datas['sort'] = '6'
     util.http(app.globalData.okayApiHost, 2, datas, this.poccessData)
 
   },
@@ -74,7 +74,7 @@ Page({
     let datas = [];
     datas['key'] = 'postList'
     datas['s'] = 'App.Main_Set.GetList'
-    datas['sort'] = 2
+    datas['sort'] = '6'
     util.http(app.globalData.okayApiHost, 2, datas, this.poccessData)
 
     let foo = 1
@@ -91,6 +91,21 @@ Page({
   onReachBottom() {
 
   },
+
+  onShareAppMessage(options){
+    let noteid = options.target.dataset.shareid
+    
+    return{
+      title: '我觉得还行, 你也来看看',
+      path: "pages/own/share/index?id=" + noteid ,
+      imageUrl: '../../data/images/ad.png',
+      success: function (res) {
+      },
+    }
+    
+  },
+
+
   poccessData(res) {
     //数据处理函数:改变时间显示格式, 添加item收藏状态数据 
     let postCollected = wx.getStorageSync('postCollected') || {}
@@ -145,7 +160,9 @@ Page({
   },
 
   collectPost(e) {
+
     let that = this;
+    let openid = wx.getStorageSync('openid');
     let postid = e.currentTarget.dataset.postid;
     let noteid = that.data.postData[postid].id;
     let postCollected = wx.getStorageSync('postCollected') || {} //noteid是数据库后台帖子的唯一标识
@@ -176,7 +193,7 @@ Page({
       }
       let ownDatas = {
         s: 'App.Main_Set.Add',
-        key: data.userid,
+        key: openid,
         data: JSON.stringify(data)
       }
       util.http(app.globalData.okayApiHost, 2, datas);
@@ -242,6 +259,7 @@ Page({
     util.http(app.globalData.okayApiHost, 2, datas, this.returnPostData);
 
   },
+
   returnPostData(res) {
     if (res.data.items.length != 0) {
       //数据处理函数:改变时间显示格式, 添加item收藏状态数据

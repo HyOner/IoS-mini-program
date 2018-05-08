@@ -14,10 +14,12 @@ Page({
   },
 
 
-  onLoad: function (options) {},
+  onLoad: function (options) {
+  
+  },
 
   onReady: function (options) {
-
+  
   },
 
   onShow: function (options) {
@@ -38,9 +40,22 @@ Page({
     let datas = [];
     datas['key'] = openid
     datas['s'] = 'App.Main_Set.GetList'
-    datas['sort'] = 2
+    datas['sort'] = '6'
 
     util.http(app.globalData.okayApiHost, 2, datas, this.poccessData);
+
+  },
+
+  onShareAppMessage(options) {
+    let noteid = options.target.dataset.shareid
+
+    return {
+      title: '我觉得还行, 你也来看看',
+      path: "pages/own/share/index?id=" + noteid,
+      imageUrl: '../../data/images/ad.png',
+      success: function (res) {
+      },
+    }
 
   },
 

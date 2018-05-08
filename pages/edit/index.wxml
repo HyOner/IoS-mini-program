@@ -37,7 +37,7 @@
     <view class='tip'>
         <text>tip:请不要发布虚假广告, 色情暴力等相关违法信息</text>
     </view>
-    <button class="button" size="mini" form-type="submit">发布</button>
+    <button class="button" size="mini" form-type="submit">{{isEdit?'更新':'发布'}}</button>
 
 </form>
 

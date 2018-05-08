@@ -1,19 +1,24 @@
-.item-container {
+/* .item-container {
     display: flex;
     flex-direction: column;
     width: inherit;
     height: 76px;
     box-sizing: border-box;
-}
+    background: #46cb84;
+} */
 
 .sbox {
     height: 30px;
     line-height: 30px;
+    
 }
 
 .introduction {
+    border-radius: 8px 8px 0 0;
     height: inherit;
-    padding-bottom: 10px;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    background: rgba(44,45,50,0.9);
 }
 
 .tag {
@@ -29,8 +34,8 @@
 
 .tag text {
     font-size: 13px;
-    color: white;
-    font-weight: 300;
+    color:#333;
+    font-weight: 400;
     letter-spacing: 1rpx;
 }
 
@@ -38,13 +43,14 @@
     font-size: 14px;
     margin-left: 14px;
     margin-right: 7px;
+    color: #fcfbf9
 }
 
 .time {
     float: right;
     margin-right: 20px;
     font-size: 13px;
-    color: #999
+    color: #b3b3b5
 }
 
 .title-box {
@@ -61,7 +67,7 @@
 .title {
     width: inherit;
     font-size: 16px;
-    color: #333
+    color: #46cb84
 }
 
 swiper {
@@ -101,25 +107,29 @@ swiper {
     line-height: 30px;
 }
 
-.footer {
+/* .footer {
     display: flex;
     flex-direction: row;
     justify-content: flex-end
-}
+} */
 
-.footer-img {
+/* .footer-img {
     width: 28px;
     height: 28px;
     margin-left: 10px;
-}
+} */
 
-.img-box {
+/* button[class="share"]::after {
+    border: none
+} */
+
+/* .img-box {
     margin-right: 10px;
     width: 12%;
     display: inline-block;
-}
+} */
 
-.up-img {
+/* .up-img {
     width: 22px;
     height: 22px;
     margin-right: 20px;
@@ -137,5 +147,5 @@ swiper {
     float: right;
     transform: rotate(90deg);
     opacity: 1;
-    transition: all .5s linear
-}
+    transition: all .5s linear;
+} */

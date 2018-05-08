@@ -1,5 +1,5 @@
 <template name="uploadBox">
-    <view class="upload" catch:tap="imgUpload">
+    <view class="upload" catch:tap="imgUpload" hover="true" hover-class="hover" hover-stay-time="100">
 
         <image class='realImg' wx:if='{{isFileReal}}' src='{{filePaths}}' />
         <image class="close-img" wx:if='{{isFileReal}}' src="../../data/images/xx.png" catch:tap="deleteUploadImg"  data-imgid="{{index}}" />

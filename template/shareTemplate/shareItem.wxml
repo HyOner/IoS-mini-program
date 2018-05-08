@@ -1,55 +1,56 @@
-<template name="ownItem">
-    <view class="item-container">
-    
-    
-        <view class="introduction">
-    
-            <view class='title-box' catch:tap='onTapDetail' data-postid="{{itemid}}">
+<template name="shareItem">
+    <!-- <view class="item-container"> -->
+
+
+        <view class="introduction" catch:tap='onTapDetail' data-postid="{{itemid}}">
+
+            <view class='title-box'>
                 <text class='title'>{{post.data.title}}</text>
-                <image class='{{postid===itemid?"up-img-checked":"up-img"}}' src='../../data/images/packup.png' catch:tap="onTapUp" data-postid="{{itemid}}"></image>
             </view>
-    
-    
+
+
             <view class="sbox">
                 <view class='tag'>
                     <text>{{post.data.category==1?'闲置':(post.data.category==2?'求助':(post.data.category==3?'转赠':(post.data.category==4?'兼职':'其他')))}}</text>
                 </view>
-    
-                <text class='user'>{{userInfo.nickName}}</text>
+
+                <text class='user'>{{post.data.user}}</text>
                 <text>/</text>
-                <text style="margin-left:7px;font-size:14px;color:#666;">{{post.data.collected_count}}</text>
-                <text style="letter-spacing:1rpx;color:#666;font-size:12px;">人喜欢</text>
-    
+                <text style="margin-left:7px;font-size:14px;color:#fcfbf9;">{{post.data.collected_count}}</text>
+                <text style="letter-spacing:1rpx;color:#fcfbf9;font-size:12px;">人喜欢</text>
+
                 <text class='time'>{{post.add_time}}</text>
             </view>
         </view>
-    
+
         <view class='swiper' wx:if="{{post.data.imgSrc.length}}">
-            <swiper indicator-dots='true' display-multiple-items="2">
+            <swiper indicator-dots='true' display-multiple-items="{{post.data.imgSrc.length>1?2:1}}">
                 <block wx:for="{{post.data.imgSrc}}" wx:for-item="imgItem">
                     <swiper-item>
-                        <image class="swiper-img" src='{{imgItem}}'></image>
+                        <image wx:if="{{imgItem}}" class="swiper-img" src='{{imgItem}}' mode="aspectFit"></image>
                     </swiper-item>
                 </block>
             </swiper>
         </view>
-    
-    
+
+
         <view class="detail-box">
-            <view class='footer'>
-    
+            <!-- <view class='footer'>
+
                 <view class='img-box'>
-                    <image class='footer-img' src='../../data/images/share.png'></image>
+                    <button class="share" open-type="share" style="width:28px;height:28px;background:#fff" data-shareid="{{post.id}}">
+                        <image class='footer-img' style="position:relative;left:-13px;margin-left:0" src='../../../data/images/share.png' />
+                    </button>
                 </view>
-    
+
                 <view class='img-box'>
-                    <image class='footer-img' src="{{post.postCollected?'../../data/images/like_fill.png':'../../data/images/like.png'}}" catch:tap='collectPost'
-                        data-postid="{{itemid}}"></image>
+                    <image class='footer-img' src="{{post.postCollected?'../../../data/images/like_fill.png':'../../../data/images/like.png'}}"
+                        catch:tap='collectPost' data-postid="{{itemid}}"></image>
                 </view>
-    
-    
-            </view>
-    
+
+
+            </view> -->
+
             <view style="box-sizing:border-box;margin:0 20rpx;" id="{{'content'+itemid}}">
                 <text class="detail-text">{{post.data.title+'. '+post.data.content}}</text>
             </view>
@@ -57,10 +58,9 @@
                 <text class="price">{{post.data.price?'¥ '+post.data.price:'面谈'}}</text>
                 <text class="contact">{{post.data.contact}}</text>
             </view>
-    
-        </view>
-    
-    </view>
 
+        </view>
+
+    <!-- </view> -->
 
 </template>

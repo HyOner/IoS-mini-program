@@ -113,11 +113,14 @@ swiper {
     margin-left: 10px;
 }
 
+button[class="share"]::after {
+    border: none
+}
+
 .img-box {
     margin-right: 10px;
     width: 12%;
     display: inline-block;
-    
 }
 
 .up-img {
@@ -138,5 +141,5 @@ swiper {
     float: right;
     transform: rotate(90deg);
     opacity: 1;
-    transition: all .5s linear
+    transition: all .5s linear;
 }

@@ -28,7 +28,7 @@
             <swiper indicator-dots='true' display-multiple-items="{{post.data.imgSrc.length>1?2:1}}">
                 <block wx:for="{{post.data.imgSrc}}" wx:for-item="imgItem">
                     <swiper-item>
-                        <image wx:if="{{imgItem}}" class="swiper-img" src='{{imgItem}}'></image>
+                        <image wx:if="{{imgItem}}" class="swiper-img" src='{{imgItem}}' mode="aspectFit"></image>
                     </swiper-item>
                 </block>
             </swiper>
@@ -39,7 +39,10 @@
             <view class='footer'>
 
                 <view class='img-box'>
-                    <image class='footer-img' src='../../data/images/share.png'></image>
+                    <button class="share" open-type="share" style="width:28px;height:28px;background:#ededef" data-shareid="{{post.id}}">
+                        <image class='footer-img' style="position:relative;left:-13px;margin-left:0" src='../../data/images/share.png'
+                        />
+                    </button>
                 </view>
 
                 <view class='img-box'>
@@ -94,7 +97,7 @@
             <swiper indicator-dots='true' display-multiple-items="{{post.data.imgSrc.length>1?2:1}}">
                 <block wx:for="{{post.data.imgSrc}}" wx:for-item="imgItem">
                     <swiper-item>
-                        <image wx:if="{{imgItem}}" class="swiper-img" src='{{imgItem}}'></image>
+                        <image wx:if="{{imgItem}}" class="swiper-img" src='{{imgItem}}' mode="aspectFit"></image>
                     </swiper-item>
                 </block>
             </swiper>
@@ -105,7 +108,9 @@
             <view class='footer'>
 
                 <view class='img-box'>
-                    <image class='footer-img' src='../../../data/images/share.png'></image>
+                    <button class="share" open-type="share" style="width:28px;height:28px;background:#ededef" data-shareid="{{post.id}}">
+                        <image class='footer-img' style="position:relative;left:-13px;margin-left:0" src='../../../data/images/share.png' />
+                    </button>
                 </view>
 
                 <view class='img-box'>
@@ -160,7 +165,7 @@
             <swiper indicator-dots='true' display-multiple-items="{{post.data.imgSrc.length>1?2:1}}">
                 <block wx:for="{{post.data.imgSrc}}" wx:for-item="imgItem">
                     <swiper-item>
-                        <image wx:if="{{imgItem}}" class="swiper-img" src='{{imgItem}}'></image>
+                        <image wx:if="{{imgItem}}" class="swiper-img" src='{{imgItem}}' mode="aspectFit"></image>
                     </swiper-item>
                 </block>
             </swiper>

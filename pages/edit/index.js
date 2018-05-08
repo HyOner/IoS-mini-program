@@ -67,7 +67,6 @@ Page({
             isFileReal: false
           })
         }
-
       }
 
       this.setData({
@@ -76,15 +75,22 @@ Page({
         files: files
       })
     } 
-   
+
   },
 
   onHide: function () {
-
+    
   },
 
   onUnload: function () {
-
+    this.setData({
+      editData: null,
+      isEdit: false,
+      files: [{
+        filePaths: '',
+        isFileReal: false
+      }]
+    })
   },
 
   imgUpload(e) {
@@ -97,7 +103,7 @@ Page({
       success: function (res) {
         let filePaths = res.tempFilePaths;
         let uploadImg = res.tempFiles[0];
-        
+
         if (files.length < 6) {
           if (files.length === 5) {
             files[4] = {
@@ -112,18 +118,18 @@ Page({
           }
         }
 
-          if (wx.getStorageSync('editData')) {
-            let editData = wx.getStorageSync('editData')
-            let imgSrc = editData.data.imgSrc || []
-            imgSrc.unshift(filePaths[0]);
-            wx.setStorageSync('editData', editData)
-          } 
+        if (wx.getStorageSync('editData')) {
+          let editData = wx.getStorageSync('editData')
+          let imgSrc = editData.data.imgSrc || []
+          imgSrc.unshift(filePaths[0]);
+          wx.setStorageSync('editData', editData)
+        }
 
         let data = {
-          s: 'App.CDN.UploadImg' 
+          s: 'App.CDN.UploadImg'
         }
-        let datas = okayapi.enryptData(data);   
-        
+        let datas = okayapi.enryptData(data);
+
         let url = app.globalData.okayApiHost + '/?s=App.CDN.UploadImg'
 
         wx.uploadFile({
@@ -143,7 +149,7 @@ Page({
               that.setData({
                 files: newFiles
               })
-              
+
             } else {
               console.log('上传失败', res);
             }
@@ -157,7 +163,7 @@ Page({
       }
     })
   },
-/* 更新帖子有两点bug待解决: 1.不能先输文字信息, 只能先更换图片, 不然输的文字信息会被onshow函数重置; 2.收藏状态不能更新 */
+  /* 更新帖子 */
   submitData(e) {
     let data = e.detail.value;
     let imgSrc = [];
@@ -168,17 +174,21 @@ Page({
 
     if (files.length > 1) {
       let databaseImgSRCLength
-      if (this.data.editData && this.data.editData.imgSrc){
-       databaseImgSRCLength = this.data.editData.imgSrc.length}
-      else {  databaseImgSRCLength = 0}
+      if (this.data.editData && this.data.editData.imgSrc) {
+        databaseImgSRCLength = this.data.editData.imgSrc.length
+      } else {
+        databaseImgSRCLength = 0
+      }
       for (let i = 0; i < files.length; i++) {
         if (files[i].imgSrc) {
           imgSrc.push(files[i].imgSrc)
-        }}
+        }
+      }
       if (imgSrc.length < databaseImgSRCLength) {
-        for (let j = imgSrc.length; j < databaseImgSRCLength; j++){
+        for (let j = imgSrc.length; j < databaseImgSRCLength; j++) {
           imgSrc[j] = "";
-        }}
+        }
+      }
       data['imgSrc'] = imgSrc
     } else {
       data['imgSrc'] = ''
@@ -201,20 +211,39 @@ Page({
       else {
         let updateData = data;
         let editData = wx.getStorageSync('editData')
+        let userCollected = wx.getStorageSync('userCollected') || null;
+        if(userCollected)
+        {var sourceid = userCollected[editData.id] || null;}
+
         updateData.collected_count = editData.data.collected_count || 0;
-        if (!updateData.category){
+        if (!updateData.category) {
           updateData.category = editData.data.category
         }
+        //更新源帖的数据
         let datas = {
           s: 'App.Main_Set.Update',
           id: editData.id,
           data: JSON.stringify(updateData)
         }
-        this.setData({
-          isEdit: false
-        })
-
         util.http(app.globalData.okayApiHost, 2, datas, this.submitSuccess);
+        //如果该篇帖子被收藏, 则将收藏副本数据更新
+        if (sourceid) {
+          let collectedData = {
+            s: 'App.Main_Set.Update',
+            id: Number(sourceid),
+            data: JSON.stringify(updateData)
+          }
+          util.http(app.globalData.okayApiHost, 2, collectedData, this.submitSuccess);
+        }
+
+        this.setData({
+          editData: null,
+          isEdit: false,
+          files: [{
+            filePaths: '',
+            isFileReal: false
+          }]
+        })
       }
     }
 

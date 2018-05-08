@@ -1,0 +1,7 @@
+<import src='../../../template/shareTemplate/shareItem.wxml' />
+<view class="header"><text>分享给您</text></view>
+    <view class='item'>
+        <template is='shareItem' data="{{post:postData,userInfo:userInfo,postid:postid,itemid:itemid}}"></template>
+    </view>
+    <button class="button" size="mini" catch:tap="goHome">去首页看看</button>
+
