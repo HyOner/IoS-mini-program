@@ -1,12 +1,13 @@
 <view class="user">
-    <image src="{{userInfo.avatarUrl}}"></image>
-    <text>{{userInfo.nickName}}</text>
+    <image src="{{userInfo?userInfo.avatarUrl:'../../data/images/mine.png'}}"></image>
+    <text>{{userInfo?userInfo.nickName:'Mr.Nobody'}}</text>
 </view>
 
 <view class='item-container' hover="true" hover-class="hover" hover-stay-time="150" data-id="1" catch:tap="onTapDetail">我收藏的<image src="../../data/images/enter.png" /></view>
 <view class='item-container' hover="true" hover-class="hover" hover-stay-time="150" data-id="2" catch:tap="onTapDetail">我发布的<image src="../../data/images/enter.png" /></view>
 <view class='item-container' hover="true" hover-class="hover" hover-stay-time="150" data-id="3" catch:tap="onTapDetail">关于我们<image src="../../data/images/enter.png" /></view>
 <view class='item-container' hover="true" hover-class="hover" hover-stay-time="150" data-id="4" catch:tap="onTapDetail">联系我们<image src="../../data/images/help.png" /></view>
+
 
 
     

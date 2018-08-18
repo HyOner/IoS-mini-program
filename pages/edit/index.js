@@ -74,12 +74,12 @@ Page({
         isEdit: true,
         files: files
       })
-    } 
+    }
 
   },
 
   onHide: function () {
-    
+
   },
 
   onUnload: function () {
@@ -94,6 +94,9 @@ Page({
   },
 
   imgUpload(e) {
+    if (!wx.getStorageSync('userAuthorization')) {
+      this.showTopTips('您尚未进行微信授权, 无法上传图片')
+    }else{
     let that = this;
     let files = that.data.files;
     wx.chooseImage({
@@ -162,88 +165,96 @@ Page({
 
       }
     })
+  }
   },
   /* 更新帖子 */
   submitData(e) {
-    let data = e.detail.value;
-    let imgSrc = [];
-    data['userid'] = wx.getStorageSync('openid');
-    data['user'] = this.data.userInfo.nickName;
-    data['collected_count'] = 0;
-    let files = this.data.files
-
-    if (files.length > 1) {
-      let databaseImgSRCLength
-      if (this.data.editData && this.data.editData.imgSrc) {
-        databaseImgSRCLength = this.data.editData.imgSrc.length
-      } else {
-        databaseImgSRCLength = 0
-      }
-      for (let i = 0; i < files.length; i++) {
-        if (files[i].imgSrc) {
-          imgSrc.push(files[i].imgSrc)
-        }
-      }
-      if (imgSrc.length < databaseImgSRCLength) {
-        for (let j = imgSrc.length; j < databaseImgSRCLength; j++) {
-          imgSrc[j] = "";
-        }
-      }
-      data['imgSrc'] = imgSrc
+    if (!wx.getStorageSync('userAuthorization')) {
+      this.showTopTips('您尚未进行微信授权, 无法发布宝贝')
     } else {
-      data['imgSrc'] = ''
-    }
+      let data = e.detail.value;
+      let imgSrc = [];
+      data['userid'] = wx.getStorageSync('openid');
+      data['user'] = this.data.userInfo.nickName;
+      data['collected_count'] = 0;
+      let files = this.data.files;
+      let isEdit = this.data.isEdit;
 
-    //发布前先检空
-    if (this.checkEmpty(data)) {
-      //如果是发布不是更新
-      if (!this.data.isEdit) {
-        let datas = {
-          data: JSON.stringify(data),
-          key: 'postList',
-          keyword: String(data.title + data.userid),
-          s: 'App.Main_Set.Add'
-        };
-
-        util.http(app.globalData.okayApiHost, 2, datas, this.submitSuccess);
-
-      } //如果是更新
-      else {
-        let updateData = data;
-        let editData = wx.getStorageSync('editData')
-        let userCollected = wx.getStorageSync('userCollected') || null;
-        if(userCollected)
-        {var sourceid = userCollected[editData.id] || null;}
-
-        updateData.collected_count = editData.data.collected_count || 0;
-        if (!updateData.category) {
-          updateData.category = editData.data.category
+      if (files.length > 1) {
+        let databaseImgSRCLength
+        if (this.data.editData && this.data.editData.imgSrc) {
+          databaseImgSRCLength = this.data.editData.imgSrc.length
+        } else {
+          databaseImgSRCLength = 0
         }
-        //更新源帖的数据
-        let datas = {
-          s: 'App.Main_Set.Update',
-          id: editData.id,
-          data: JSON.stringify(updateData)
+        for (let i = 0; i < files.length; i++) {
+          if (files[i].imgSrc) {
+            imgSrc.push(files[i].imgSrc)
+          }
         }
-        util.http(app.globalData.okayApiHost, 2, datas, this.submitSuccess);
-        //如果该篇帖子被收藏, 则将收藏副本数据更新
-        if (sourceid) {
-          let collectedData = {
+        if (imgSrc.length < databaseImgSRCLength) {
+          for (let j = imgSrc.length; j < databaseImgSRCLength; j++) {
+            imgSrc[j] = "";
+          }
+        }
+        data['imgSrc'] = imgSrc
+      } else {
+        data['imgSrc'] = ''
+      }
+
+      //发布前先检空
+      if (this.checkEmpty(data)) {
+        //如果是发布不是更新
+        if (isEdit === false) {
+          let datas = {
+            data: JSON.stringify(data),
+            key: 'postList',
+            keyword: String(data.title + data.userid),
+            s: 'App.Main_Set.Add'
+          };
+
+          util.http(app.globalData.okayApiHost, 2, datas, this.submitSuccess);
+
+        } //如果是更新
+        else {
+          let updateData = data;
+          let editData = wx.getStorageSync('editData')
+          let userCollected = wx.getStorageSync('userCollected') || null;
+          if (userCollected) {
+            var sourceid = userCollected[editData.id] || null;
+          }
+
+          updateData.collected_count = editData.data.collected_count || 0;
+          if (!updateData.category) {
+            updateData.category = editData.data.category
+          }
+          //更新源帖的数据
+          let datas = {
             s: 'App.Main_Set.Update',
-            id: Number(sourceid),
+            id: editData.id,
             data: JSON.stringify(updateData)
           }
-          util.http(app.globalData.okayApiHost, 2, collectedData, this.submitSuccess);
-        }
+          util.http(app.globalData.okayApiHost, 2, datas, this.submitSuccess);
+          //如果该篇帖子被收藏, 则将收藏副本数据更新
+          if (sourceid) {
+            let collectedData = {
+              s: 'App.Main_Set.Update',
+              id: Number(sourceid),
+              data: JSON.stringify(updateData)
+            }
 
-        this.setData({
-          editData: null,
-          isEdit: false,
-          files: [{
-            filePaths: '',
-            isFileReal: false
-          }]
-        })
+            util.http(app.globalData.okayApiHost, 2, collectedData, this.submitSuccess);
+          }
+
+          this.setData({
+            editData: null,
+            isEdit: false,
+            files: [{
+              filePaths: '',
+              isFileReal: false
+            }]
+          })
+        }
       }
     }
 

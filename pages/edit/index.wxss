@@ -111,10 +111,8 @@
 
 .radio-item_active {
     background: #46cb84;
-    /* background: #aaa; */
     display: inline-block;
     margin-left: 30rpx;
-    /* border: 1px solid #999; */
     border: 1px solid #46cb84;
     width: 40px;
     text-align: center;

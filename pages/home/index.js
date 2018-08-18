@@ -18,39 +18,39 @@ Page({
 
 
   onLoad: function (options) {
-   
+
     let datas = [];
     datas['key'] = 'postList'
     datas['s'] = 'App.Main_Set.GetList'
-    datas['sort'] = '6'
+    datas['sort'] = '26'
 
-    util.http(app.globalData.okayApiHost, 2, datas, this.poccessData);
+    // util.http(app.globalData.okayApiHost, 2, datas, this.poccessData);
   },
 
   onReady: function (options) {
-    
+
   },
 
   onShow: function (options) {
 
     if (wx.getStorageSync('editData')) {
       wx.removeStorageSync('editData')
-    } 
+    }
 
     this.animation = wx.createAnimation({
       duration: 500,
       timingFunction: "linear"
     })
-      
+
     let datas = [];
     datas['key'] = 'postList'
     datas['s'] = 'App.Main_Set.GetList'
-    datas['sort'] = '6'
+    datas['sort'] = '26'
     util.http(app.globalData.okayApiHost, 2, datas, this.poccessData)
 
   },
 
-  onHide:function (options) {
+  onHide: function (options) {
     //重置动画效果
     if (this.data.postid != null) {
 
@@ -64,7 +64,7 @@ Page({
         postid: null
       });
     }
-    
+
   },
 
   onPullDownRefresh() {
@@ -74,16 +74,17 @@ Page({
     let datas = [];
     datas['key'] = 'postList'
     datas['s'] = 'App.Main_Set.GetList'
-    datas['sort'] = '6'
+    datas['sort'] = '26'
     util.http(app.globalData.okayApiHost, 2, datas, this.poccessData)
 
     let foo = 1
     while (foo) {
-      if(this.data.poccessDataDone){
-      wx.hideNavigationBarLoading();
-      wx.stopPullDownRefresh();
-      foo = 0
-    }}
+      if (this.data.poccessDataDone) {
+        wx.hideNavigationBarLoading();
+        wx.stopPullDownRefresh();
+        foo = 0
+      }
+    }
     this.setData({
       poccessDataDone: false
     });
@@ -92,17 +93,16 @@ Page({
 
   },
 
-  onShareAppMessage(options){
+  onShareAppMessage(options) {
     let noteid = options.target.dataset.shareid
-    
-    return{
+
+    return {
       title: '我觉得还行, 你也来看看',
-      path: "pages/own/share/index?id=" + noteid ,
+      path: "pages/own/share/index?id=" + noteid,
       imageUrl: '../../data/images/ad.png',
-      success: function (res) {
-      },
+      success: function (res) {},
     }
-    
+
   },
 
 
@@ -126,13 +126,17 @@ Page({
         let collectedid = res.data.items[i].id
         if (postCollected[collectedid]) {
           res.data.items[i]['postCollected'] = true;
-        } else { res.data.items[i]['postCollected'] = false}
+        } else {
+          res.data.items[i]['postCollected'] = false
+        }
       } else res.data.items[i]['postCollected'] = false
 
       //将url为空的imgSrc剔除出去
       let imgSrc = res.data.items[i].data.imgSrc
-      for(let j=0;j<imgSrc.length;j++){
-        if (!imgSrc[j]) {imgSrc.splice(j,1)}
+      for (let j = 0; j < imgSrc.length; j++) {
+        if (!imgSrc[j]) {
+          imgSrc.splice(j, 1)
+        }
       }
       res.data.items[i].data.imgSrc = imgSrc
 
@@ -160,71 +164,74 @@ Page({
   },
 
   collectPost(e) {
-
-    let that = this;
-    let openid = wx.getStorageSync('openid');
-    let postid = e.currentTarget.dataset.postid;
-    let noteid = that.data.postData[postid].id;
-    let postCollected = wx.getStorageSync('postCollected') || {} //noteid是数据库后台帖子的唯一标识
-    that.setData({
-      noteid: noteid
-    })
-
-    //判断用户的收藏状态, 未收藏就让收藏数加1, 已收藏减1, 返回后台数据
-    let data = that.data.postData[postid].data;
-    let collected = that.data.postData[postid].postCollected
-    let collected_count = that.data.postData[postid].data.collected_count
-
-    //点击收藏后,将收藏状态取反,并存入页面data中 
-    collected = !collected;
-    that.data.postData[postid].postCollected = collected
-    postCollected[noteid] = collected;
-    wx.setStorageSync('postCollected', postCollected)
-    //用户未收藏该篇post
-    if (collected) {
-
-      let collected_count = Number(data.collected_count) + 1;
-      that.data.postData[postid].data.collected_count = collected_count;
-
-      let datas = {
-        s: 'App.Main_Set.Update',
-        id: that.data.postData[postid].id,
-        data: JSON.stringify(data)
-      }
-      let ownDatas = {
-        s: 'App.Main_Set.Add',
-        key: openid,
-        data: JSON.stringify(data)
-      }
-      util.http(app.globalData.okayApiHost, 2, datas);
-      util.http(app.globalData.okayApiHost, 2, ownDatas, this.saveReturnCollectedPostid);
-
-      //用户已收藏该篇post
+    if (!wx.getStorageSync('userAuthorization')) {
+      this.showTopTips('您尚未进行微信授权, 无法收藏宝贝')
     } else {
-      let collected_count = Number(data.collected_count) - 1;
-      that.data.postData[postid].data.collected_count = collected_count;
-      let userCollected = wx.getStorageSync('userCollected')
+      let that = this;
+      let openid = wx.getStorageSync('openid');
+      let postid = e.currentTarget.dataset.postid;
+      let noteid = that.data.postData[postid].id;
+      let postCollected = wx.getStorageSync('postCollected') || {} //noteid是数据库后台帖子的唯一标识
+      that.setData({
+        noteid: noteid
+      })
 
-      let datas = {
-        s: 'App.Main_Set.Update',
-        id: that.data.postData[postid].id,
-        data: JSON.stringify(data)
+      //判断用户的收藏状态, 未收藏就让收藏数加1, 已收藏减1, 返回后台数据
+      let data = that.data.postData[postid].data;
+      let collected = that.data.postData[postid].postCollected
+      let collected_count = that.data.postData[postid].data.collected_count
+
+      //点击收藏后,将收藏状态取反,并存入页面data中 
+      collected = !collected;
+      that.data.postData[postid].postCollected = collected
+      postCollected[noteid] = collected;
+      wx.setStorageSync('postCollected', postCollected)
+      //用户未收藏该篇post
+      if (collected) {
+
+        let collected_count = Number(data.collected_count) + 1;
+        that.data.postData[postid].data.collected_count = collected_count;
+
+        let datas = {
+          s: 'App.Main_Set.Update',
+          id: that.data.postData[postid].id,
+          data: JSON.stringify(data)
+        }
+        let ownDatas = {
+          s: 'App.Main_Set.Add',
+          key: openid,
+          data: JSON.stringify(data)
+        }
+        util.http(app.globalData.okayApiHost, 2, datas);
+        util.http(app.globalData.okayApiHost, 2, ownDatas, this.saveReturnCollectedPostid);
+
+        //用户已收藏该篇post
+      } else {
+        let collected_count = Number(data.collected_count) - 1;
+        that.data.postData[postid].data.collected_count = collected_count;
+        let userCollected = wx.getStorageSync('userCollected')
+
+        let datas = {
+          s: 'App.Main_Set.Update',
+          id: that.data.postData[postid].id,
+          data: JSON.stringify(data)
+        }
+
+        let ownDatas = {
+          s: 'App.Main_Set.Delete',
+          id: Number(userCollected[noteid])
+        }
+        util.http(app.globalData.okayApiHost, 2, datas);
+        util.http(app.globalData.okayApiHost, 2, ownDatas);
+
+        userCollected[noteid] = undefined
+        wx.setStorageSync('userCollected', userCollected)
       }
 
-      let ownDatas = {
-        s: 'App.Main_Set.Delete',
-        id: Number(userCollected[noteid])
-      }
-      util.http(app.globalData.okayApiHost, 2, datas);
-      util.http(app.globalData.okayApiHost, 2, ownDatas);
-
-      userCollected[noteid] = undefined
-      wx.setStorageSync('userCollected', userCollected)
+      that.setData({
+        postData: that.data.postData
+      })
     }
-
-    that.setData({
-      postData: that.data.postData
-    })
   },
 
   // 回调函数接收收藏返回的记录帖id
@@ -254,7 +261,7 @@ Page({
       s: 'App.Main_Set.Query',
       key: 'postList',
       keyword: keyword,
-      sort: 2,
+      sort: '26',
     }
     util.http(app.globalData.okayApiHost, 2, datas, this.returnPostData);
 

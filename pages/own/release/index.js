@@ -20,28 +20,31 @@ Page({
   },
 
   onShow: function (options) {
-    this.animation = wx.createAnimation({
-      duration: 500,
-      timingFunction: "linear"
-    })
+    if (!wx.getStorageSync('userAuthorization')) {
+      this.showTopTips('您尚未授权, 请先进行微信授权')
+    } else {
+      this.animation = wx.createAnimation({
+        duration: 500,
+        timingFunction: "linear"
+      })
 
-    let userInfo = wx.getStorageSync('userInfo') || {
-      nickName: 'Mr.Nobody',
-      avatarUrl: '../../data/images/mine.png'
+      let userInfo = wx.getStorageSync('userInfo') || {
+        nickName: 'Mr.Nobody',
+        avatarUrl: '../../data/images/mine.png'
+      }
+      let openid = wx.getStorageSync('openid')
+      this.setData({
+        userInfo: userInfo,
+        openid: openid
+      })
+      let datas = [];
+      datas['key'] = 'postList'
+      datas['keyword'] = openid
+      datas['s'] = 'App.Main_Set.Query'
+      datas['sort'] = '6'
+
+      util.http(app.globalData.okayApiHost, 2, datas, this.poccessData);
     }
-    let openid = wx.getStorageSync('openid')
-    this.setData({
-      userInfo: userInfo,
-      openid: openid
-    })
-    let datas = [];
-    datas['key'] = 'postList'
-    datas['keyword'] = openid
-    datas['s'] = 'App.Main_Set.Query'
-    datas['sort'] = '6'
-
-    util.http(app.globalData.okayApiHost, 2, datas, this.poccessData);
-
   },
 
   poccessData(res) {
@@ -53,7 +56,9 @@ Page({
       //将url为空的imgSrc剔除出去
       let imgSrc = res.data.items[i].data.imgSrc
       for (let j = 0; j < imgSrc.length; j++) {
-        if (!imgSrc[j]) { imgSrc.splice(j, 1) }
+        if (!imgSrc[j]) {
+          imgSrc.splice(j, 1)
+        }
       }
       res.data.items[i].data.imgSrc = imgSrc
     }
@@ -93,7 +98,7 @@ Page({
       cancelText: "留着",
       success: (res) => {
         if (res.confirm) {
-          
+
           if (this.data.postid != null) {
 
             this.animation.height(76).step({
